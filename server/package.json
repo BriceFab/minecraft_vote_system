@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "date-format": "^2.0.0",
+    "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "public-ip": "^3.1.0",
+    "sequelize": "^5.8.9",
+    "sequelize-cli": "^5.5.0",
+    "uuid": "^3.3.2",
+    "uuid-validate": "0.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "generated_files/*"
+    ]
+  }
+}
