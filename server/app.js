@@ -33,8 +33,8 @@ sequelize
         console.error('Unable to connect to the database');
     });
 
-if (config.app.env === 'dev'){
-    sequelize.sync({force: false});
+if (config.app.env === 'dev') {
+    sequelize.sync({force: config.db.force});
 }
 
 //Cors

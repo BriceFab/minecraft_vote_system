@@ -5,6 +5,9 @@ const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 const {vote} = require('../models');
 
+/*
+TODO add captcha
+ */
 const postVote = async function(req, res){
     const ip = await ipService.getIp();
     if (ip === undefined) return response.error(res, "No ip");
@@ -26,7 +29,7 @@ const postVote = async function(req, res){
 
     if (date.isAfter(vote_date)) {
         const vote_data = await vote.create({
-            serverId: '1',
+            serverId: '320d394e-9060-11e9-b776-00ff8997ac6c',
             date: moment(),
             ip: ip,
             ...ipInfo,

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         ip: {type: DataTypes.STRING, allowNull: false},
         date: {type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW},
         hasUse: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
-        token: {type: DataTypes.STRING, allowNull: false},
+        token: {type: DataTypes.STRING(1024), allowNull: false},
         city: {type: DataTypes.STRING, allowNull: true},
         country: {type: DataTypes.STRING, allowNull: true},
         region: {type: DataTypes.STRING, allowNull: true},

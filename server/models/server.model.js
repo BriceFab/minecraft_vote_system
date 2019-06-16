@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE',
             foreignKey: {
                 allowNull: false
-            }
+            },
         });
         models.server.hasMany(models.server_tag);
     };

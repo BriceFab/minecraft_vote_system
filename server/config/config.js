@@ -4,6 +4,7 @@ module.exports = {
     app: {
         env: process.env.ENV || 'dev',
         port: process.env.PORT || '3000',
+        host: process.env.HOST || 'localhost:3000',
         contact: process.env.CONTACT || 'bricefab123@gmail.com',
     },
     db: {
@@ -12,7 +13,8 @@ module.exports = {
         port: process.env.DB_PORT || '3306',
         name: process.env.DB_NAME || 'minecraft-vote',
         user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD || 'password'
+        password: process.env.DB_PASSWORD || 'password',
+        force: process.env.FORCE || false,
     },
     jwt: {
         encryption: process.env.JWT_ENCRYPTION || '!].9HqW[PFyxv9yq',
