@@ -34,7 +34,9 @@ sequelize
     });
 
 if (config.app.env === 'dev') {
-    sequelize.sync({force: config.db.force});
+    const force = JSON.parse(config.db.force);
+    console.log(`clean db ${force}`);
+    sequelize.sync({force: force});
 }
 
 //Cors

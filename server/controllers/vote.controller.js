@@ -7,7 +7,7 @@ const {vote, server} = require('../models');
 
 const addVote = async (server, ip, ipInfo, res) => {
     const vote_data = await vote.create({
-        serverId: server,
+        id_server: server,
         date: moment(),
         ip: ip,
         ...ipInfo,
@@ -40,25 +40,23 @@ const create = async (req, res) => {
     if (!server) return response.error(res, 'no server');
 
     //get last vote
-    const last_vote = await vote.findOne({
-        // attributes: ['id', 'date'],
-        // include: [server],
-        include: [ {
-            model: server,
-            required: false,
-        } ],
-        // where: {
-        //     serverId: server,
-        //     ip: '12',
-        // },
-        // order: [
-        //     ['date', 'DESC'],
-        // ],
-        // limit: 1,
-    });
-    return response.success(res, last_vote);
+    // const last_vote = await vote.findOne({
+    //     // attributes: ['id', 'date'],
+    //     include: [ {
+    //         model: server
+    //     }],
+    //     where: {
+    //         id_server: server,
+    //         // ip: '12',
+    //     },
+    //     // order: [
+    //     //     ['date', 'DESC'],
+    //     // ],
+    //     // limit: 1,
+    // });
+    // return response.success(res, last_vote);
 
-    if (last_vote) {
+    if (false) {
         const vote_date = moment('2019-06-16 13:59:51').add({hour: 3});
         const date = moment();
 
@@ -83,7 +81,7 @@ const create = async (req, res) => {
 module.exports.create = create;
 
 //secret token => only by server site verif
-const check = async function(req, res){
+const check = async (req, res) => {
     try {
         const decode = jwt.decode(req.params.token, {complete: true});
         const vote = decode.payload.data;

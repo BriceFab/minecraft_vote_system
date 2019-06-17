@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const tag = sequelize.define('tag', {
-        id: {
+        id_tag: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     tag.associate = (models) => {
-        models.tag.hasMany(models.server_tag, {onDelete: 'CASCADE'});
+        models.tag.hasMany(models.server_tag, { foreignKey: { name: 'id_tag', allowNull: false }, onDelete: 'CASCADE' });
     };
 
     return tag;

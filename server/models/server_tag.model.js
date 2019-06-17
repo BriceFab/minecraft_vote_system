@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const server_tag = sequelize.define('server_tag', {
-        id: {
+        id_server_tag: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
@@ -12,6 +12,21 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     server_tag.associate = (models) => {
+        models.server_tag.belongsTo(models.server, {
+            foreignKey: {
+                name: 'id_server',
+                allowNull: false,
+            },
+            onDelete: 'CASCADE',
+        });
+
+        models.server_tag.belongsTo(models.tag, {
+            foreignKey: {
+                name: 'id_tag',
+                allowNull: false,
+            },
+            onDelete: 'CASCADE',
+        });
     };
 
     return server_tag;

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const vote = sequelize.define('vote', {
-        id: {
+        id_vote: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false,
     });
+
+    vote.associate = (models) => {
+        models.vote.belongsTo(models.server, {
+            foreignKey: {
+                name: 'id_server',
+                allowNull: false,
+            },
+            onDelete: 'CASCADE',
+        });
+    };
 
     vote.beforeValidate((vote, options) => {
         if (!vote.token) {

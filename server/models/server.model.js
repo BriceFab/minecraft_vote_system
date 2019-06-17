@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const server = sequelize.define('server', {
-        id: {
+        id_server: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
@@ -20,13 +20,16 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     server.associate = (models) => {
-        models.server.hasMany(models.vote, {
-            onDelete: 'CASCADE',
+        models.server.hasMany(models.vote, { foreignKey: { name: 'id_server', allowNull: false }, onDelete: 'CASCADE' });
+        models.server.hasMany(models.server_tag, { foreignKey: { name: 'id_server', allowNull: false }, onDelete: 'CASCADE' });
+
+        models.server.belongsTo(models.type, {
             foreignKey: {
-                allowNull: false
+                name: 'id_type',
+                allowNull: false,
             },
+            onDelete: 'CASCADE',
         });
-        models.server.hasMany(models.server_tag);
     };
 
     return server;

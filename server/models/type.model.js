@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const type = sequelize.define('type', {
-        id: {
+        id_type: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
@@ -13,12 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     type.associate = (models) => {
-        models.type.hasMany(models.server, {
-            onDelete: 'CASCADE',
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        models.type.hasMany(models.server, { foreignKey: { name: 'id_type', allowNull: false }, onDelete: 'CASCADE' });
     };
 
     return type;
