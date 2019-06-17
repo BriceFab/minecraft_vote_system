@@ -5,20 +5,38 @@ const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 const {vote, server} = require('../models');
 
-const addVote = async (server, ip, ipInfo, res) => {
+const addVote = async (id_server, ip, res) => {
+    //get ip info
+    const ipInfo = await ipService.getInfo(ip);
+    if (ipInfo === undefined) return response.error(res, 'unable to get ip info');
+
     const vote_data = await vote.create({
-        id_server: server,
+        id_server: id_server,
         date: moment(),
         ip: ip,
         ...ipInfo,
     });
-    return response.success(res, {token:vote_data.token}, 200);
+    return response.success(res, {token:vote_data.token});
 };
 
 /*
 TODO add captcha
+TODO add user_id if not anonyme
+TODO add secret token for vote ?
  */
 const create = async (req, res) => {
+    //check host
+    const {host} = req.headers;
+    if (!host) return response.error(res, 'not authorized');
+    if (![config.app.host].includes(host)) return response.error(res, 'not authorized');
+
+    //get server
+    const {id_server} = req.params;
+    if (!id_server) return response.error(res, 'unable to find server');
+
+    const vote_server = await server.findByPk(id_server);
+    if (!vote_server) return response.error(res, 'no server');
+
     //get ip
     const ip = await ipService.getIp();
     if (ip === undefined) return response.error(res, 'unable to get ip');
@@ -27,41 +45,23 @@ const create = async (req, res) => {
     const isVpn = await ipService.checkVpn(ip);
     if (isVpn === undefined) return response.error(res, 'unable to check vpn');
 
-    //check ip info
-    const ipInfo = await ipService.getInfo(ip);
-    if (ipInfo === undefined) return response.error(res, 'unable to get ip info');
-
-    //check host
-    const {host} = req.headers;
-    if (!host) return response.error(res, 'unable to get host');
-    if (![config.app.host].includes(host)) return response.error(res, 'invalid host');
-
-    const {server} = req.body;
-    if (!server) return response.error(res, 'no server');
-
     //get last vote
-    // const last_vote = await vote.findOne({
-    //     // attributes: ['id', 'date'],
-    //     include: [ {
-    //         model: server
-    //     }],
-    //     where: {
-    //         id_server: server,
-    //         // ip: '12',
-    //     },
-    //     // order: [
-    //     //     ['date', 'DESC'],
-    //     // ],
-    //     // limit: 1,
-    // });
-    // return response.success(res, last_vote);
+    const last_vote = await vote.findOne({
+        where: {
+            id_server: id_server,
+            ip: ip,
+        },
+        order: [
+            ['date', 'DESC'],
+        ],
+    });
 
-    if (false) {
-        const vote_date = moment('2019-06-16 13:59:51').add({hour: 3});
+    if (last_vote) {
+        const vote_date = moment(last_vote.date).add({minutes: vote_server.dataValues.vote_wait});
         const date = moment();
 
         if (date.isAfter(vote_date)) {
-            return addVote(server, ip, ipInfo, res);
+            return addVote(id_server, ip, res);
         } else {
             const date_diff = vote_date.diff(date, null, true);
             const duration = moment.duration(date_diff);
@@ -75,31 +75,43 @@ const create = async (req, res) => {
             })
         }
     } else {
-        return addVote(server, ip, ipInfo, res);
+        return addVote(id_server, ip, res);
     }
 };
 module.exports.create = create;
 
-//secret token => only by server site verif
+/*
+TODO add secret token => only server site can verif or official site
+ */
 const check = async (req, res) => {
+    let token_data = {};
+
     try {
         const decode = jwt.decode(req.params.token, {complete: true});
-        const vote = decode.payload.data;
         const expiration = decode.payload.exp;
+        token_data = decode.payload.data;
         // console.log('token_decode', vote, expiration);
 
         if (Date.now() / 1000 > expiration) {
             return response.error(res, 'token has expired');
-        } else {
-            //verify if user have get recompense
-
-            //set has use -> true
-
-            return response.success(res, 'token valid', 200);
         }
-
     } catch (err) {
         return response.error(res, 'invalid token');
+    }
+
+    const vote_data = await vote.findByPk(token_data.id_vote);
+    if (!vote_data) return response.error(res, 'invalid vote');
+
+    if (vote_data.hasUse) {
+        return response.error(res, 'reward already used');
+    } else {
+        vote_data.hasUse = true;
+        vote_data.save();
+
+        return response.success(res, {
+            token: 'token valid',
+            canUse: true,
+        });
     }
 };
 module.exports.check = check;

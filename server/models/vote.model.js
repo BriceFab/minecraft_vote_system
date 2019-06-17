@@ -30,16 +30,20 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
-    vote.beforeValidate((vote, options) => {
+    vote.beforeValidate(async (vote, options) => {
         if (!vote.token) {
             const jwt = require('jsonwebtoken');
             const config = require('../config/config');
+            const {server} = require('../models');
+
+            const {id_server} = vote.dataValues;
+            const vote_server = await server.findByPk(id_server);
 
             const data = {
-                vote: vote.dataValues.id,
-                server: vote.dataValues.serverId,
+                id_vote: vote.dataValues.id_vote,
+                id_server: id_server,
             };
-            vote.token = jwt.sign({data: data}, config.jwt.encryption, {expiresIn: 60});
+            vote.token = jwt.sign({data: data}, config.jwt.encryption, {expiresIn: vote_server.dataValues.vote_duration});
         }
     });
 
