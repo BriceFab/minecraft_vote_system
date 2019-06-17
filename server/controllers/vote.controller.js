@@ -5,7 +5,11 @@ const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 const {vote, server} = require('../models');
 
-const addVote = async (id_server, ip, res) => {
+const addVote = async (id_server, ip, req, res) => {
+    //check is vpn
+    const isVpn = await ipService.checkVpn(ip, req.headers);
+    if (isVpn) return response.error(res, 'proxy are not allowed');
+
     //get ip info
     const ipInfo = await ipService.getInfo(ip);
     if (ipInfo === undefined) return response.error(res, 'unable to get ip info');
@@ -23,6 +27,7 @@ const addVote = async (id_server, ip, res) => {
 TODO add captcha
 TODO add user_id if not anonyme
 TODO add secret token for vote ?
+TODO autoriser seulement certains pays
  */
 const create = async (req, res) => {
     //check host
@@ -41,10 +46,6 @@ const create = async (req, res) => {
     const ip = await ipService.getIp();
     if (ip === undefined) return response.error(res, 'unable to get ip');
 
-    //check is vpn
-    const isVpn = await ipService.checkVpn(ip);
-    if (isVpn === undefined) return response.error(res, 'unable to check vpn');
-
     //get last vote
     const last_vote = await vote.findOne({
         where: {
@@ -61,7 +62,7 @@ const create = async (req, res) => {
         const date = moment();
 
         if (date.isAfter(vote_date)) {
-            return addVote(id_server, ip, res);
+            return addVote(id_server, ip, req, res);
         } else {
             const date_diff = vote_date.diff(date, null, true);
             const duration = moment.duration(date_diff);
@@ -75,7 +76,7 @@ const create = async (req, res) => {
             })
         }
     } else {
-        return addVote(id_server, ip, res);
+        return addVote(id_server, ip, req, res);
     }
 };
 module.exports.create = create;

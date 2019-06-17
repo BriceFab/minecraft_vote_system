@@ -7,7 +7,32 @@ module.exports.getIp = async () => {
   return await publicIp.v4();
 };
 
-module.exports.checkVpn = async (Ip) => {
+/**
+ * Contrôle si les headers contient un header interdit
+ * @param headers
+ */
+const safeHeaders = (headers) => {
+    let isSafe = true;
+    // console.log('headers', headers);
+    config.vpn.headers.forEach(header => {
+        if (Object.keys(headers).includes(header)) {
+            isSafe = false;
+        }
+    });
+    return isSafe;
+};
+
+/**
+ * Contrôle des VPN
+ * @param Ip
+ * @param headers
+ * @returns true if is vpn or proxy
+ */
+module.exports.checkVpn = async (Ip, headers) => {
+
+    const isSafeHeaders = safeHeaders(headers);
+    if (!isSafeHeaders) return true;
+
     const res = await axios.get(`http://check.getipintel.net/check.php?ip=${Ip}&contact=${config.app.contact}&format=json`);
 
     if (res.data && res.data.result) {
