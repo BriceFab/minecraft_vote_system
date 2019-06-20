@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Passport
 app.use(passport.initialize({}));
+app.use(passport.session({}));
 
 //Database
 sequelize
@@ -38,8 +39,19 @@ sequelize
 
 if (config.app.env === 'dev') {
     const force = JSON.parse(config.db.force);
-    console.log(`clean db ${force}`);
-    sequelize.sync({force: force});
+
+    sequelize.sync({force: force}).then((res) => {
+        console.log(`clean db ${force}`);
+
+        if (force) {
+            const sequelize_fixtures = require('sequelize-fixtures');
+            const models = require('./models');
+
+            sequelize_fixtures.loadFile('fixtures/*.json', models).then((res) => {
+                console.log('load fixtures successfully');
+            });
+        }
+    });
 }
 
 //Update geoIP data

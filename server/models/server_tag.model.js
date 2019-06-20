@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
                 isUUID: 4,
             }
         },
+    }, {
+        timestamps: false
     });
 
     server_tag.associate = (models) => {
