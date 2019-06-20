@@ -75,7 +75,8 @@ const checkVote = async function(req, res){
 };
 module.exports.checkVote = checkVote;
 
-const association = async (req, res) => {
+const association = async (req, res, next) => {
+    // console.log('next', next)
     const last_vote = await vote.findOne({
         include: [ {
             model: server
@@ -86,3 +87,15 @@ const association = async (req, res) => {
     return response.success(res, last_vote);
 };
 module.exports.association = association;
+
+module.exports.geoip = async (req, res) => {
+    const geoip = require('geoip-lite');
+
+    const ip = await ipService.getIp();
+    console.log('ip', ip);
+    const geo = geoip.lookup(ip);
+
+    return response.success(res, {
+        geoIp: geo
+    })
+};

@@ -18,5 +18,10 @@ module.exports.LogSequelize = (message) => {
 };
 
 function getFileName(type) {
-    return path.join(`./logs/${config.app.env}/`, `${type}_${format.asString('dd.MM.yy', new Date())}.log`);
+    const dir = `./logs/${config.app.env}/${format.asString('dd.MM.yyyy', new Date())}/`;
+    if (!fs.existsSync(dir)) {
+        console.log('create ' + dir);
+        fs.mkdirSync(dir);
+    }
+    return path.join(dir, `${type}.log`);
 }

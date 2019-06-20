@@ -20,6 +20,9 @@ module.exports = {
         encryption: process.env.JWT_ENCRYPTION || '!].9HqW[PFyxv9yq',
         expiration: process.env.JWT_EXPIRATION || '60',
     },
+    log: {
+        http_format: process.env.LOG_HTTP_FORMAT || ':method :url :status - :remote-addr :user-agent - :response-time ms',
+    },
     vpn: {
         headers: [
             'HTTP_VIA',
