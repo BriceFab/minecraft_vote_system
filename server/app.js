@@ -38,8 +38,19 @@ sequelize
 
 if (config.app.env === 'dev') {
     const force = JSON.parse(config.db.force);
-    console.log(`clean db ${force}`);
-    sequelize.sync({force: force});
+
+    sequelize.sync({force: force}).then((res) => {
+        console.log(`clean db ${force}`);
+
+        if (force) {
+            const sequelize_fixtures = require('sequelize-fixtures');
+            const models = require('./models');
+
+            sequelize_fixtures.loadFile('fixtures/*.json', models).then((res) => {
+                console.log('load fixtures successfully');
+            });
+        }
+    });
 }
 
 //Update geoIP data
@@ -60,7 +71,7 @@ require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    return response.error(res, "Not Found", httpStatus.NOT_FOUND);
+    response.sendError(res, 'not found', httpStatus.NOT_FOUND);
 });
 
 // error handler
@@ -69,13 +80,13 @@ app.use((err, req, res, next) => {
 
     log.logError(err);
 
-    return response.error(res, err, httpStatus.INTERNAL_SERVER_ERROR);
+    response.sendError(res, err, httpStatus.INTERNAL_SERVER_ERROR);
 });
 
 //This is here to handle all the uncaught promise rejections
-process.on('unhandledRejection', error => {
-    console.error('Uncaught Error', error);
-    log.logError(error)
+process.on('unhandledRejection', (error) => {
+    console.log('Unhandled Rejection at:', error);
+    log.logError(error);
 });
 
 module.exports = app;

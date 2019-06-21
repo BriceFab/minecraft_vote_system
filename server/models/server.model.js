@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
                 isUUID: 4,
             }
         },
-        name: {type: DataTypes.STRING, allowNull: false, validate: {max:1}},
+        name: {type: DataTypes.STRING, allowNull: false},
         url: {type: DataTypes.STRING, allowNull: false},
         ip: {type: DataTypes.STRING, allowNull: true},
         description: {type: DataTypes.STRING, allowNull: false},
@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
         models.server.belongsTo(models.type, {
             foreignKey: {
                 name: 'id_type',
+                allowNull: false,
+            },
+            onDelete: 'CASCADE',
+        });
+
+        models.server.belongsTo(models.user, {
+            foreignKey: {
+                name: 'id_user',
                 allowNull: false,
             },
             onDelete: 'CASCADE',

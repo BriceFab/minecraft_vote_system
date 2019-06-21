@@ -3,7 +3,7 @@ const moment = require('moment');
 const ipService = require('../services/ip');
 const config = require('../config/config');
 const jwt = require('jsonwebtoken');
-const {vote, server} = require('../models');
+const {vote, server, user} = require('../models');
 
 /*
 TODO add captcha
@@ -75,7 +75,8 @@ const checkVote = async function(req, res){
 };
 module.exports.checkVote = checkVote;
 
-const association = async (req, res) => {
+const association = async (req, res, next) => {
+    // console.log('next', next)
     const last_vote = await vote.findOne({
         include: [ {
             model: server
@@ -97,4 +98,12 @@ module.exports.geoip = async (req, res) => {
     return response.success(res, {
         geoIp: geo
     })
+};
+
+module.exports.register = async (req, res) => {
+    user.create(req.body).then(success => {
+        response.sendSuccess(res, success)
+    }).catch(error => {
+        response.sendSequelizeError(res, error)
+    });
 };
