@@ -4,14 +4,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
-            allowNull: false,
-            validate: {
-                isUUID: 4,
-            }
+            allowNull: false
         },
         label: {type: DataTypes.STRING, allowNull: false}
-    }, {
-        timestamps: false
     });
 
     tag.associate = (models) => {

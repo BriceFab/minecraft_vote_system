@@ -30,14 +30,6 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE',
         });
-
-        models.server.belongsTo(models.user, {
-            foreignKey: {
-                name: 'id_user',
-                allowNull: false,
-            },
-            onDelete: 'CASCADE',
-        });
     };
 
     return server;

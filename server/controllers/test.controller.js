@@ -75,8 +75,7 @@ const checkVote = async function(req, res){
 };
 module.exports.checkVote = checkVote;
 
-const association = async (req, res, next) => {
-    // console.log('next', next)
+const association = async (req, res) => {
     const last_vote = await vote.findOne({
         include: [ {
             model: server

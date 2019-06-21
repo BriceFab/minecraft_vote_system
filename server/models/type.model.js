@@ -10,8 +10,6 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         label: {type: DataTypes.STRING, allowNull: false}
-    }, {
-        timestamps: false
     });
 
     type.associate = (models) => {

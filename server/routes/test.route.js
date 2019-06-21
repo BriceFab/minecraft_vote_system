@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/test.controller');
-const cors = require('cors');
-const passport = require('passport');
-require('./../middleware/passport')(passport);
+// const cors = require('cors');
 
 // var whitelist = ['http://example1.com', 'http://example2.com', 'localhost'];
 // var corsOptions = {
@@ -18,12 +16,11 @@ require('./../middleware/passport')(passport);
 //     preflightContinue: true
 // };
 
+
 router.get('/vote', controller.postVote);
 router.get('/check/:token', controller.checkVote);
 // router.get('/association', cors(corsOptions), controller.association);
 router.get('/association', controller.association);
-
-router.get('/geoip', passport.authenticate('jwt', {session: false}, null), controller.geoip);
-router.post('/register', controller.register);
+router.get('/geoip', controller.geoip);
 
 module.exports = router;
