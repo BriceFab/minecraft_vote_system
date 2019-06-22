@@ -23,7 +23,8 @@ router.get('/check/:token', controller.checkVote);
 // router.get('/association', cors(corsOptions), controller.association);
 router.get('/association', controller.association);
 
-router.get('/geoip', passport.authenticate('jwt', {session: false}, null), controller.geoip);
+router.get('/geoip', passport.authenticate('jwt', {session: false}), controller.geoip);
 router.post('/register', controller.register);
+router.post('/login', controller.login)
 
 module.exports = router;

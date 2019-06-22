@@ -107,3 +107,29 @@ module.exports.register = async (req, res) => {
         response.sendSequelizeError(res, error)
     });
 };
+
+module.exports.login = async (req, res) => {
+    user.findOne({
+        where: {
+            username: req.body.username
+        }
+    }).then(success => {
+        if (!success) response.sendError(res, 'no user found')
+
+        const isMatch = user.comparePassword(req.body.password, success.password)
+        if (isMatch) {
+            const token = jwt.sign({data: success}, config.jwt.encryption, {expiresIn: 180});
+            //console.log('token', token)
+
+            response.sendSuccess(res, {
+                token: token,
+                user: success
+            })
+        } else {
+            response.sendError(res, 'invalid password or username')
+        }
+    }).catch(error => {
+        console.log('error', error)
+        response.sendSequelizeError(res, error)
+    })
+};
