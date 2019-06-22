@@ -11,6 +11,7 @@ const helmet = require('helmet');
 const geoip = require('geoip-lite');
 const httpStatus = require('http-status');
 const proxy = require('express-http-proxy');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 
@@ -27,6 +28,26 @@ if (config.app.env === 'dev') {
         },
     }));
 }
+
+//Limit
+const voteLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5,
+    handler: (req, res) => {
+        response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
+    }
+});
+   
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100,
+    handler: (req, res) => {
+        response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
+    }
+});
+   
+app.use('/vote', voteLimiter);
+app.use(limiter);
 
 //Logs
 app.use(logger(config.log.http_format, {

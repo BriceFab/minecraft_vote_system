@@ -8,11 +8,11 @@ const {vote, server} = require('../models');
 const addVote = async (id_server, ip, req, res) => {
     //check is vpn
     const isVpn = await ipService.checkVpn(ip, req.headers);
-    if (isVpn) return response.error(res, 'proxy are not allowed');
+    if (isVpn) return response.sendError(res, 'proxy are not allowed');
 
     //get ip info
     const ipInfo = await ipService.getInfo(ip);
-    if (ipInfo === undefined) return response.error(res, 'unable to get ip info');
+    if (ipInfo === undefined) return response.sendError(res, 'unable to get ip info');
 
     const vote_data = await vote.create({
         id_server: id_server,
@@ -20,7 +20,7 @@ const addVote = async (id_server, ip, req, res) => {
         ip: ip,
         ...ipInfo,
     });
-    return response.success(res, {token:vote_data.token});
+    return response.sendSuccess(res, {token:vote_data.token});
 };
 
 /*
@@ -32,19 +32,19 @@ TODO autoriser seulement certains pays
 const create = async (req, res) => {
     //check host
     const {host} = req.headers;
-    if (!host) return response.error(res, 'not authorized');
-    if (![config.app.host].includes(host)) return response.error(res, 'not authorized');
+    if (!host) return response.sendError(res, 'not authorized');
+    if (![config.app.host].includes(host)) return response.sendError(res, 'not authorized');
 
     //get server
     const {id_server} = req.params;
-    if (!id_server) return response.error(res, 'unable to find server');
+    if (!id_server) return response.sendError(res, 'unable to find server');
 
     const vote_server = await server.findByPk(id_server);
-    if (!vote_server) return response.error(res, 'no server');
+    if (!vote_server) return response.sendError(res, 'no server');
 
     //get ip
     const ip = await ipService.getIp();
-    if (ip === undefined) return response.error(res, 'unable to get ip');
+    if (ip === undefined) return response.sendError(res, 'unable to get ip');
 
     //get last vote
     const last_vote = await vote.findOne({
@@ -67,7 +67,7 @@ const create = async (req, res) => {
             const date_diff = vote_date.diff(date, null, true);
             const duration = moment.duration(date_diff);
 
-            return response.error(res, {
+            return response.sendError(res, {
                 waitTime: {
                     hours: duration.get('hours'),
                     minutes: duration.get('minutes'),
@@ -95,22 +95,22 @@ const check = async (req, res) => {
         // console.log('token_decode', vote, expiration);
 
         if (Date.now() / 1000 > expiration) {
-            return response.error(res, 'token has expired');
+            return response.sendError(res, 'token has expired');
         }
     } catch (err) {
-        return response.error(res, 'invalid token');
+        return response.sendError(res, 'invalid token');
     }
 
     const vote_data = await vote.findByPk(token_data.id_vote);
-    if (!vote_data) return response.error(res, 'invalid vote');
+    if (!vote_data) return response.sendError(res, 'invalid vote');
 
     if (vote_data.hasUse) {
-        return response.error(res, 'reward already used');
+        return response.sendError(res, 'reward already used');
     } else {
         vote_data.hasUse = true;
         vote_data.save();
 
-        return response.success(res, {
+        return response.sendSuccess(res, {
             token: 'token valid',
             canUse: true,
         });
