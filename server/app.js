@@ -10,7 +10,6 @@ const config = require('./config/config');
 const helmet = require('helmet');
 const geoip = require('geoip-lite');
 const httpStatus = require('http-status');
-// const expressValidator = require('express-validator');
 
 const app = express();
 
@@ -22,9 +21,6 @@ app.use(logger(config.log.http_format, {
 //Body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-//Validator
-// app.use(expressValidator());
 
 //Passport
 app.use(passport.initialize({}));

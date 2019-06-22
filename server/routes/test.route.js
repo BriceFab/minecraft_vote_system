@@ -36,6 +36,17 @@ router.get('/geoip', passport.authenticate('jwt', {
 */
 ), controller.geoip);
 router.post('/register', controller.register);
+
 router.post('/login', controller.login)
+
+const validator = require('../middleware/validator')
+const { body } = require('express-validator');
+
+router.post('/validator', [
+    body('username').exists(),
+    body('password', 'invalid password').exists()
+], validator.controllerValidator, (req, res) => {
+    res.status(200).json('ok');
+  });
 
 module.exports = router;

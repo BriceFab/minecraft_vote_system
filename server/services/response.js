@@ -15,13 +15,36 @@ module.exports.sendError = (res, err, code) => {
     });
 };
 
-module.exports.sendSequelizeError = (res, err, code) => {
+module.exports.sendSequelizeError = (res, err) => {
     let error = {};
     if (err.errors !== undefined && err.errors.length > 0) {
         const errors = err.errors.map(error => error.message);
-        error = {messages: errors};
+        error = {
+            type: 'orm',
+            messages: errors
+        };
     } else {
         error = err;
     }
-    this.sendError(res, error, code);
+    this.sendError(res, error, httpStatus.UNPROCESSABLE_ENTITY);
 };
+
+module.exports.sendValidatorError = (res, err) => {
+    let error = {};
+
+    if (err.length > 0) {
+        const errors = err.map(error => {
+            return {
+                param: error.param,
+                error: error.msg,
+            }
+        });
+        error = {
+            type: 'validator',
+            messages: errors
+        };
+    } else {
+        error = err;
+    }
+    this.sendError(res, error, httpStatus.UNPROCESSABLE_ENTITY);
+}
