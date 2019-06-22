@@ -10,8 +10,23 @@ const config = require('./config/config');
 const helmet = require('helmet');
 const geoip = require('geoip-lite');
 const httpStatus = require('http-status');
+const proxy = require('express-http-proxy');
 
 const app = express();
+
+//Proxy
+app.set('trust proxy', '127.0.0.1');
+
+if (config.app.env === 'dev') {
+    app.use('/test/login', proxy('www.scandicraft.net', {
+        proxyReqOptDecorator: () => {
+            return Promise.reject('proxy are not allowed');
+          },
+        proxyErrorHandler: (err, res, next) => {
+            response.sendError(res, err, httpStatus.METHOD_NOT_ALLOWED);
+        },
+    }));
+}
 
 //Logs
 app.use(logger(config.log.http_format, {
