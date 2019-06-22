@@ -31,15 +31,15 @@ if (config.app.env === 'dev') {
 
 //Limit
 const voteLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5,
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 50,
     handler: (req, res) => {
         response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
     }
 });
    
 const limiter = rateLimit({
-    windowMs: 10 * 60 * 1000, // 10 minutes
+    windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100,
     handler: (req, res) => {
         response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
