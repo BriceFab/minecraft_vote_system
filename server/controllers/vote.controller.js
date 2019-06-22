@@ -88,6 +88,7 @@ const check = async (req, res) => {
     let token_data = {};
 
     try {
+        //remplacer par jwt.verify ? 
         const decode = jwt.decode(req.params.token, {complete: true});
         const expiration = decode.payload.exp;
         token_data = decode.payload.data;

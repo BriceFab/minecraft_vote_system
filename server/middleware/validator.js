@@ -5,7 +5,19 @@ module.exports.controllerValidator = (req, res, next) => {
     const errors = validationResult(req).errors;
 
     if (errors !== undefined && errors.length > 0) {
-        response.sendValidatorError(res, errors);
+        let displayErrors = [];
+
+        errors.forEach(error => {
+            if (error.nestedErrors) {
+                error.nestedErrors.forEach(nestedError => {
+                    displayErrors.push(nestedError);
+                })
+            } else {
+                displayErrors.push(error);
+            }
+        });
+
+        response.sendValidatorError(res, displayErrors);
     } else {
         next();
     }

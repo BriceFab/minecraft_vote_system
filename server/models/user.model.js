@@ -20,6 +20,26 @@ module.exports = (sequelize, DataTypes) => {
         models.user.hasMany(models.server, { foreignKey: { name: 'id_user', allowNull: false }, onDelete: 'CASCADE' });
     };
 
+    user.findUser = (username, email) => {
+        let whereOp = {
+            username: null,
+        };
+
+        if (username) {
+            whereOp = {
+                username: username
+            };
+        } else if (email) {
+            whereOp = {
+                email: email
+            };
+        }
+
+        return sequelize.models.user.findOne({
+            where: whereOp
+        });
+    };
+
     user.generateHash = (password) => {
         return bcrypt.hashSync(password, 10);
     };

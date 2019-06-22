@@ -8,7 +8,11 @@ module.exports.sendSuccess = (res, data, code) => {
 };
 
 module.exports.sendError = (res, err, code) => {
-    if (err === undefined) err = 'unknown error';
+    if (err === undefined) {
+        err = 'unknown error';
+        code = httpStatus.UNKNOWN_ERROR;
+    }
+    
     res.status(code ? code : httpStatus.UNAUTHORIZED).json({
         success: false,
         error: err
@@ -33,10 +37,11 @@ module.exports.sendValidatorError = (res, err) => {
     let error = {};
 
     if (err.length > 0) {
-        const errors = err.map(error => {
-            return {
-                param: error.param,
-                error: error.msg,
+        const errors = [];
+        err.forEach(error => {
+            const actError = `${error.param}: ${error.msg}`;
+            if (!errors.includes(actError)) {
+                errors.push(actError);
             }
         });
         error = {
