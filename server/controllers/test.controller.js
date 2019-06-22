@@ -88,14 +88,14 @@ const association = async (req, res, next) => {
 };
 module.exports.association = association;
 
-module.exports.geoip = async (req, res) => {
+module.exports.geoip = async (req, res, next) => {
     const geoip = require('geoip-lite');
 
     const ip = await ipService.getIp();
     console.log('ip', ip);
     const geo = geoip.lookup(ip);
 
-    return response.success(res, {
+    response.sendSuccess(res, {
         geoIp: geo
     })
 };
@@ -118,8 +118,10 @@ module.exports.login = async (req, res) => {
 
         const isMatch = user.comparePassword(req.body.password, success.password)
         if (isMatch) {
-            const token = jwt.sign({data: success}, config.jwt.encryption, {expiresIn: 180});
+            const token = jwt.sign({id_user: success.id_user}, config.jwt.encryption, {expiresIn: config.jwt.expiration});
             //console.log('token', token)
+
+            console.log('id_user', success.id_user)
 
             response.sendSuccess(res, {
                 token: token,

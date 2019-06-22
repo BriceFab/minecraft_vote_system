@@ -10,25 +10,19 @@ const opts = {
 module.exports = passport => {
     passport.use(
         new Strategy(opts, (payload, done) => {
-            console.log('passport payload', payload)
-            user.findById(payload.id).then(success => {
-                console.log('user')
-                done(null, success)
+            user.findOne({
+                where: {
+                    id_user: payload.id_user
+                }
+            }).then(success => {
+                if(success) {
+                    return done(null, success);
+                }else{
+                    return done(null, false);
+                }
             }).catch(error => {
-                console.log('error', error)
-                done(error, false)
+                return done(error, false);
             });
-            // User.findById(payload.id)
-            //     .then(user => {
-            //         if(user){
-            //             return done(null, {
-            //                 id: user.id,
-            //                 name: user.name,
-            //                 email: user.email,
-            //             });
-            //         }
-            //         return done(null, false);
-            //     }).catch(err => console.error(err));
         })
     );
 };
