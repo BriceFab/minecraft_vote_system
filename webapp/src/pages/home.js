@@ -8,7 +8,7 @@ const styles = theme => ({
 class HomePage extends Component {
     render() {
         return (
-            <div>work</div>
+            <div>Home page</div>
         );
     }
 }

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import HomePage from './pages/home';
 import TestPage from './pages/test';
+import AccountPage from './pages/account';
 import NotFoundPage from './pages/not-found';
 
 const styles = theme => ({
@@ -28,6 +29,7 @@ class App extends Component {
           <div className={classes.toolbar} />
             <Switch>
               <Route exact path="/" component={HomePage}/>
+              <Route path="/account" component={AccountPage}/>
               <Route path="/test" component={TestPage}/>
               <Route component={NotFoundPage}/>
             </Switch>
