@@ -1,56 +1,62 @@
-import React, { Component } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import React, { Component } from "react";
+import { withStyles, Drawer, Divider, ListItem, ListItemIcon, ListItemText, List } from "@material-ui/core";
 import MailIcon from '@material-ui/icons/Mail';
 
+const drawerWidth = 240;
+
 const styles = theme => ({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
+      drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+      drawerPaper: {
+        width: drawerWidth,
+      },
+      toolbar: theme.mixins.toolbar,
 });
 
+/**
+ * Menu principal
+ */
 class MainMenu extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-      const {classes} = this.props;
+        const {classes} = this.props;
 
-    return (
-        <Drawer open={this.props.isOpen} onClose={this.props.closeMenu}>
-              <div
-              className={classes.list}
-              role="main-menu"
-              onClick={this.props.closeMenu}
-              >
-              <List>
-                  <ListItem button key={'lien 1'}>
-                      <ListItemIcon>
-                        <MailIcon />  
-                    </ListItemIcon>
-                      <ListItemText primary={'lien 1'} />
-                  </ListItem>
-                    <Divider />
-                  <ListItem button key={'lien 2'}>
-                      <ListItemIcon> <InboxIcon /></ListItemIcon>
-                      <ListItemText primary={'lien 2'} />
-                  </ListItem>
-              </List>
-              </div>
-        </Drawer>
-    );
-  }
+        return (
+            <Drawer
+            className={classes.drawer}
+            variant={this.props.open ? 'permanent' : ''}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            open={this.props.open}
+          >
+            <div className={classes.toolbar} />
+            <List>
+              {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List>
+              {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer>
+        );
+    }
 
 }
 export default withStyles(styles)(MainMenu);
