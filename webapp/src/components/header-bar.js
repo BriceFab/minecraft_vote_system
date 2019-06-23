@@ -1,32 +1,63 @@
 import React, { Component } from "react";
-import { withStyles, AppBar, Toolbar, IconButton } from "@material-ui/core";
-
+import { withStyles, AppBar, Toolbar, IconButton, Button } from "@material-ui/core";
+import { fade } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import MainMenu from './main-menu';
-
-const drawerWidth = 240;
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-      },
-      appBar: {
+    appBar: {
         zIndex: theme.zIndex.drawer + 1,
       },
-      drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-      drawerPaper: {
-        width: drawerWidth,
-      },
-      content: {
+    sectionBreak: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+    },
+
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(3),
+          width: 'auto',
+        },
       },
-      toolbar: theme.mixins.toolbar,
+      searchIcon: {
+        width: theme.spacing(7),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      inputRoot: {
+        color: 'inherit',
+      },
+      inputInput: {
+        padding: theme.spacing(1, 1, 1, 7),
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+          width: 200,
+        },
+      },
 });
+
+/**
+ * Barre de l'application
+ */
 class HeaderBar extends Component {
 
     constructor(props) {
@@ -45,24 +76,51 @@ class HeaderBar extends Component {
         const {classes} = this.props;
 
         return (
-            <div className={classes.root}>
-            <AppBar position="fixed" className={classes.appBar}>
-              <Toolbar>
-              <IconButton
-                  edge="start"
-                  color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.toggleMainMenu.bind(this)}
-                >
-                  <MenuIcon className={classes.menu} />
-                </IconButton>
-                <Typography variant="h6" noWrap>
-                  Clipped drawer
-                </Typography>
-              </Toolbar>
-            </AppBar>
-            <MainMenu open={this.state.mainMenuOpen} />
+            <main>
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="main-menu"
+                            onClick={this.toggleMainMenu.bind(this)}>
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap>
+                            <Link color={'inherit'} component={RouterLink} to="/">servers-ranking</Link>
+                        </Typography>
+                        <div className={classes.sectionBreak} />
+
+                        <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'Search' }}
+            />
           </div>
+                        
+          <div className={classes.sectionBreak} />
+
+                        
+                        <Button color="inherit">Login</Button>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="main-menu"
+                            onClick={this.toggleMainMenu.bind(this)}>
+                            <AccountCircle />
+                        </IconButton>
+
+                    </Toolbar>
+                </AppBar>
+                <MainMenu open={this.state.mainMenuOpen} />
+          </main>
         );
     }
 
