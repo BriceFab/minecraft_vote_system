@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import CONFIG from "../config";
 
 const styles = theme => ({
     appBar: {
@@ -87,7 +88,7 @@ class HeaderBar extends Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap>
-                            <Link color={'inherit'} component={RouterLink} to="/">servers-ranking</Link>
+                            <Link color={'inherit'} component={RouterLink} to="/">{CONFIG.APP.NAME}</Link>
                         </Typography>
                         <div className={classes.sectionBreak} />
 

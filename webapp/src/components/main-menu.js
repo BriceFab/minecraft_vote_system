@@ -3,6 +3,7 @@ import { withStyles, Drawer, Divider, ListItem, ListItemIcon, ListItemText, List
 import MailIcon from '@material-ui/icons/Mail';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import moment from 'moment';
+import CONFIG from '../config';
 
 const drawerWidth = 240;
 
@@ -57,7 +58,7 @@ class MainMenu extends Component {
                             </ListItem>
                         </List>
                         <List>
-                            <ListItemText secondary={`© ${moment(new Date()).format('YYYY')} servers-ranking`} className={classes.copyright} />
+                            <ListItemText secondary={`© ${moment(new Date()).format('YYYY')} ${CONFIG.APP.NAME}`} className={classes.copyright} />
                         </List>
                 </Drawer>
         );
