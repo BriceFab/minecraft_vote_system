@@ -8,7 +8,7 @@ const styles = theme => ({
 class TestPage extends Component {
     render() {
         return (
-            <div>test page</div>
+            <>test page</>
         );
     }
 }
