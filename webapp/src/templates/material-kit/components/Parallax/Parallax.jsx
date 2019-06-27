@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import parallaxStyle from "assets/jss/material-kit-react/components/parallaxStyle.jsx";
+import parallaxStyle from "../../assets/jss/material-kit-react/components/parallaxStyle.jsx";
 
 class Parallax extends React.Component {
   constructor(props) {
@@ -41,12 +41,14 @@ class Parallax extends React.Component {
       children,
       style,
       image,
-      small
+      small,
+      xs
     } = this.props;
     const parallaxClasses = classNames({
       [classes.parallax]: true,
       [classes.filter]: filter,
       [classes.small]: small,
+      [classes.xs]: xs,
       [className]: className !== undefined
     });
     return (
@@ -71,7 +73,8 @@ Parallax.propTypes = {
   children: PropTypes.node,
   style: PropTypes.string,
   image: PropTypes.string,
-  small: PropTypes.bool
+  small: PropTypes.bool,
+  xs: PropTypes.bool
 };
 
 export default withStyles(parallaxStyle)(Parallax);
