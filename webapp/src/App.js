@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import HomePage from './pages/home';
 import TestPage from './pages/test';
-import LoginPage from './pages/login';
 import AccountPage from './pages/account';
 import NotFoundPage from './pages/not-found';
 import componentsStyle from "./templates/material-kit/assets/jss/material-kit-react/views/components.jsx";
@@ -30,7 +29,6 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/compte" component={AccountPage} />
-              <Route path="/login" component={LoginPage} />
               <Route path="/test" component={TestPage} />
               <Route component={NotFoundPage} />
             </Switch>

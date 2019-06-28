@@ -5,10 +5,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 // core components
 import GridItem from "../../templates/material-kit/components/Grid/GridItem.jsx";
-import GridContainer from "../../templates/material-kit/components/Grid/GridContainer";
 import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
 import Card from "../../templates/material-kit/components/Card/Card.jsx";
 import CardBody from "../../templates/material-kit/components/Card/CardBody.jsx";
@@ -88,16 +86,6 @@ class LoginForm extends Component {
                         </Grid>
                         <Grid item>
                       </Grid>
-                      {/* <GridItem xs={12} sm={12} md={4}>
-                        <Button simple color="primary" size="lg">
-                            Connexion
-                            </Button>
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <Button simple color="primary" size="lg">
-                            Connexion
-                            </Button>
-                        </GridItem> */}
                     </CardFooter>
                   </form>
                 </Card>

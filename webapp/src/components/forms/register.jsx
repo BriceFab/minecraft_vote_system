@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { withStyles, Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 // core components
 import GridItem from "../../templates/material-kit/components/Grid/GridItem.jsx";
-import GridContainer from "../../templates/material-kit/components/Grid/GridContainer";
 import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
 import Card from "../../templates/material-kit/components/Card/Card.jsx";
 import CardBody from "../../templates/material-kit/components/Card/CardBody.jsx";
