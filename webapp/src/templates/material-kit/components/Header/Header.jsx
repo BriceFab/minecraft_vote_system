@@ -109,13 +109,21 @@ class Header extends React.Component {
             onClose={this.handleDrawerToggle}
           >
             <div className={classes.appResponsive}>
-              {leftLinks}
-              {rightLinks}
+              {leftLinks ? React.cloneElement(leftLinks, {
+                  menuClose: this.handleDrawerToggle
+                }) : null}
+              {rightLinks ? React.cloneElement(rightLinks, {
+                  menuClose: this.handleDrawerToggle
+                }) : null}
             </div>
           </Drawer>
         </Hidden>
       </AppBar>
     );
+  }
+
+  AddExtraProps(Component, extraProps) {
+    return <Component.type {...Component.props} {...extraProps} />;
   }
 }
 
