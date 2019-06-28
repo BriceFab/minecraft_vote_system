@@ -9,6 +9,8 @@ import componentsStyle from "./templates/material-kit/assets/jss/material-kit-re
 import classNames from 'classnames';
 import combineStyles from './services/combineStyles';
 import Footer from './templates/footer';
+import { Helmet } from "react-helmet";
+import CONFIG from './config';
 
 // import "./templates/material-kit/assets/scss/material-kit-react.scss?v=1.7.0";
 
@@ -23,10 +25,19 @@ class App extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>{CONFIG.APP.NAME}</title>
+          <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/`} />
+          <meta charSet="utf-8" />
+          <meta name="description" content="TODO" />
+          <meta name="keywords" cpntent="TODO" />
+        </Helmet>
+
         <HeaderBar />
         <div className={classNames(classes.main, classes.mainRaised)}>
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route path="/accueil" component={HomePage} />
             <Route path="/compte" component={AccountPage} />
             <Route component={NotFoundPage} />
           </Switch>
