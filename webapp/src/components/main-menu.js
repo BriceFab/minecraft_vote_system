@@ -11,17 +11,17 @@ import CONFIG from '../config';
 const drawerWidth = 240;
 
 const styles = theme => ({
-      drawer: {
+    drawer: {
         width: drawerWidth,
         flexShrink: 0,
-      },
-      drawerPaper: {
+    },
+    drawerPaper: {
         width: drawerWidth,
-      },
-      toolbar: theme.mixins.toolbar,
-      copyright: {
-          textAlign: 'center'
-      }
+    },
+    toolbar: theme.mixins.toolbar,
+    copyright: {
+        textAlign: 'center'
+    }
 });
 
 /**
@@ -30,7 +30,7 @@ const styles = theme => ({
 class MainMenu extends Component {
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
 
         return (
             <Drawer
@@ -40,21 +40,21 @@ class MainMenu extends Component {
                     paper: classes.drawerPaper,
                 }}
                 open={this.props.open}>
-                    <div className={classes.toolbar} />
-                        <List>
-                            {this.renderListItem(<HomeIcon />, 'Accueil')}
-                            {this.renderListItem(<StarHalfIcon />, 'Serveurs')}
-                            {this.renderListItem(<WhatshotIcon />, 'Promotion')}
-                        </List>
-                        <Divider />
-                        <List>
-                            {this.renderListItem(<ImportantDevicesIcon />, 'API vote', false)}
-                            {this.renderListItem(<QuestionAnswerIcon />, 'Nous contacter', false)}
-                        </List>
-                        <List>
-                            <ListItemText secondary={`© ${moment(new Date()).format('YYYY')} ${CONFIG.APP.NAME}`} className={classes.copyright} />
-                        </List>
-                </Drawer>
+                <div className={classes.toolbar} />
+                <List>
+                    {this.renderListItem(<HomeIcon />, 'Accueil')}
+                    {this.renderListItem(<StarHalfIcon />, 'Serveurs')}
+                    {this.renderListItem(<WhatshotIcon />, 'Promotion')}
+                </List>
+                <Divider />
+                <List>
+                    {this.renderListItem(<ImportantDevicesIcon />, 'API vote', false)}
+                    {this.renderListItem(<QuestionAnswerIcon />, 'Nous contacter', false)}
+                </List>
+                <List>
+                    <ListItemText secondary={`© ${moment(new Date()).format('YYYY')} ${CONFIG.APP.NAME}`} className={classes.copyright} />
+                </List>
+            </Drawer>
         );
     }
 

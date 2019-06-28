@@ -6,14 +6,14 @@ const styles = theme => ({
 });
 
 class AccountPage extends Component {
-    render() {
-        // const {classes} = this.props;
+  render() {
+    // const {classes} = this.props;
 
-        return (
-          <>
-            TODO
-          </>
-        );
-    }
+    return (
+      <>
+        TODO
+      </>
+    );
+  }
 }
 export default withStyles(styles)(AccountPage);

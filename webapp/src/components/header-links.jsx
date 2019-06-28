@@ -19,7 +19,7 @@ import Button from '../templates/material-kit/components/CustomButtons/Button';
 
 import headerLinksStyle from '../templates/material-kit/assets/jss/material-kit-react/components/headerLinksStyle';
 import LinkButton from "../templates/LinkButton.jsx";
-import combineStyles from "./combineStyles.js";
+import combineStyles from "../services/combineStyles.js";
 import classNames from 'classnames';
 
 const styles = theme => ({
@@ -48,10 +48,10 @@ class HeaderLinks extends Component {
   }
 
   render() {
-      const { classes } = this.props;
+    const { classes } = this.props;
 
-      return (
-        <>
+    return (
+      <>
         <List className={classes.list}>
           <ListItem className={classes.listItem} onClick={this.menuClose.bind(this)}>
             <Link to={'/serveurs'} className={classes.navLink}>
@@ -64,16 +64,16 @@ class HeaderLinks extends Component {
             </Link>
           </ListItem>
           <ListItem className={classes.listItem} onClick={this.menuClose.bind(this)}>
-            {!this.state.loggedIn && 
+            {!this.state.loggedIn &&
               <Button
-                          onClick={this.props.openLogin}
-                          className={classNames(classes.registerNavLink, classes.btnCompte)}
-                          color="rose"
-                          round>
-                          Compte
+                onClick={this.props.openLogin}
+                className={classNames(classes.registerNavLink, classes.btnCompte)}
+                color="rose"
+                round>
+                Compte
               </Button>
             }
-              {/* <LinkButton to={this.state.loggedIn ? '/compte' : '/login'}
+            {/* <LinkButton to={this.state.loggedIn ? '/compte' : '/login'}
                           className={classNames(classes.registerNavLink, classes.btnCompte)}
                           color="rose"
                           round>
@@ -104,9 +104,9 @@ class HeaderLinks extends Component {
             />
           </ListItem> */}
         </List>
-        </>
-      );
-    }
+      </>
+    );
+  }
 }
 
 export default withStyles(combinedStyles)(HeaderLinks);

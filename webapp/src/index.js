@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './templates/theme';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
