@@ -9,6 +9,7 @@ import HeaderLinks from './header-links';
 import combineStyles from './combineStyles';
 import { Modal } from "@material-ui/core";
 import LoginForm from '../components/forms/login';
+import RegisterForm from '../components/forms/register';
 
 const styles = theme => ({
   header: {
@@ -30,6 +31,7 @@ class HeaderBar extends Component {
     this.state = {
       loggedIn: false,
       loginFormOpen: false,
+      registerFormOpen: false,
     }
   }
 
@@ -51,7 +53,11 @@ class HeaderBar extends Component {
             <Parallax small image={require(`../assets/img/header.jpg`)} className={classes.header} />
 
             <Modal disableAutoFocus={true} open={this.state.loginFormOpen} style={{overflowY: 'scroll', paddingTop: '18vh'}} onClose={() => {this.setState({loginFormOpen: false})}}>
-                <LoginForm />
+                <LoginForm openRegister={() => {this.setState({loginFormOpen: false, registerFormOpen: true})}} />
+              </Modal>
+
+              <Modal disableAutoFocus={true} open={this.state.registerFormOpen} style={{overflowY: 'scroll', paddingTop: '18vh'}} onClose={() => {this.setState({registerFormOpen: false})}}>
+                <RegisterForm />
               </Modal>
           </>
         );

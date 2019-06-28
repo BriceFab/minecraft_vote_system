@@ -29,7 +29,7 @@ const styles = theme => ({
 
 const combinedStyles = combineStyles(loginPageStyle, styles);
 
-class LoginForm extends Component {
+class Register extends Component {
     render() {
         const {classes} = this.props;
 
@@ -38,7 +38,7 @@ class LoginForm extends Component {
                 <Card>
                   <form className={classes.form}>
                     <CardHeader color="primary" className={classes.cardHeader}>
-                      <h4>Connexion ou inscription</h4>
+                      <h4>Inscription</h4>
                     </CardHeader>
                     <CardBody>
                       <CustomInput
@@ -76,28 +76,9 @@ class LoginForm extends Component {
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Grid container justify={"center"}>
-                        <Grid item>
                         <Button simple color="primary" size="lg">
-                            Connexion
+                            S'inscrire
                             </Button>
-                        </Grid>
-                        <Button simple color="rose" size="lg" onClick={() => {this.props.openRegister()}}>
-                            Créer un compte
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                      </Grid>
-                      {/* <GridItem xs={12} sm={12} md={4}>
-                        <Button simple color="primary" size="lg">
-                            Connexion
-                            </Button>
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <Button simple color="primary" size="lg">
-                            Connexion
-                            </Button>
-                        </GridItem> */}
                     </CardFooter>
                   </form>
                 </Card>
@@ -105,4 +86,4 @@ class LoginForm extends Component {
         );
     }
 }
-export default withStyles(combinedStyles)(LoginForm);
+export default withStyles(combinedStyles)(Register);
