@@ -19,21 +19,17 @@ export const register = (user) => (dispatch) => {
     });
 };
 
-export const login = (email, password) => dispatch => {
-    // axiosPost(`${CONFIG.API.BASE_URL}/login`, JSON.stringify({ email, password }), { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-    //     if (!localStorage.getItem('company')) {
-    //         if (res.data.app_user.companies.length > 0) {
-    //             localStorage.setItem('company', res.data.app_user.companies[0].id_company);
-    //         } else {
-    //             return alert("Vous n'êtes dans aucune entreprise.");
-    //         }
-    //         localStorage.setItem('user_id', res.data.app_user.id_user);
-    //     }
+export const login = (user) => dispatch => {
+    axiosPost(`${CONFIG.API.BASE_URL}/user/login`, user).then((res) => {
+        toast.success('succes')
 
-    //     storeAuthInfo(res.data.token, res.data.app_user, dispatch)
-    //     window.location.reload();
+        dispatch({
+            type: ACTIONS.USER.LOGIN,
+            payload: res.data
+        })
+    }, (error) => {
+        toast.error('Erreur')
 
-    // }, error => {
-    //     dispatch(authError(error))
-    // });
+        console.log('erreur');
+    });
 };

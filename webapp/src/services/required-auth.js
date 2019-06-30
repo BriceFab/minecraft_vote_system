@@ -24,9 +24,9 @@ export default () => Component => {
     }
 
     const mapStateToProps = (state, props) => ({
-        authenticating: state.auth.loading,
-        loggedIn: state.auth.app_user !== null,
-        error: state.auth.error
+        authenticating: state.user.loading,
+        loggedIn: state.user.app_user !== null,
+        error: state.user.error
     });
 
     return connect(mapStateToProps)(RequiredAuth);
