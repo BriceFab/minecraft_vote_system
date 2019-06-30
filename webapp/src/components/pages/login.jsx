@@ -7,6 +7,7 @@ import Slide from '@material-ui/core/Slide';
 import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
 import IconButton from '@material-ui/core/IconButton';
 import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/loginPage.jsx";
+import Card from "../../templates/material-kit/components/Card/Card.jsx";
 import combineStyles from "../../services/combineStyles.js";
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
@@ -73,8 +74,10 @@ class LoginPage extends Component {
 
                 <Grid container justify={'center'} className={classes.cardTop}>
                     <Grid item>
-                        {isLoginForm && <LoginForm />}
-                        {!isLoginForm && <RegisterForm />}
+                        <Card>
+                            {isLoginForm && <LoginForm />}
+                            {!isLoginForm && <RegisterForm />}
+                        </Card>
                     </Grid>
                 </Grid>
 

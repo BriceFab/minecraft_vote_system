@@ -8,8 +8,8 @@ import componentsPageStyle from "../templates/material-kit/assets/jss/material-k
 import HeaderLinks from './header-links';
 import combineStyles from '../services/combineStyles';
 import { Modal } from "@material-ui/core";
-import LoginForm from '../components/forms/login';
-import RegisterForm from '../components/forms/register';
+import LoginForm from './forms/login';
+import RegisterForm from './forms/register';
 
 const styles = theme => ({
   header: {

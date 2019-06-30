@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { List, ListItem, withStyles } from "@material-ui/core";
 import { Link } from 'react-router-dom';
-import footerStyle from './material-kit/assets/jss/material-kit-react/components/footerStyle';
+import footerStyle from '../templates/material-kit/assets/jss/material-kit-react/components/footerStyle';
 import moment from "moment";
 import CONFIG from "../config";
 

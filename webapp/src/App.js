@@ -1,11 +1,11 @@
+import React, { Component } from 'react';
 import HeaderBar from './components/header-bar';
 import { withStyles } from '@material-ui/core';
-import React, { Component } from 'react';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import componentsStyle from "./templates/material-kit/assets/jss/material-kit-react/views/components.jsx";
 import classNames from 'classnames';
 import combineStyles from './services/combineStyles';
-import Footer from './templates/footer';
+import Footer from './components/footer';
 import { Helmet } from "react-helmet";
 import CONFIG from './config';
 import { ToastContainer } from 'react-toastify';
@@ -15,6 +15,7 @@ import AccountPage from './components/pages/account';
 import NotFoundPage from './components/pages/not-found';
 
 // import "./templates/material-kit/assets/scss/material-kit-react.scss?v=1.7.0";
+import 'react-toastify/dist/ReactToastify.min.css'; 
 
 const styles = theme => ({
 });
