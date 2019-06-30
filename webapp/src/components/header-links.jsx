@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -66,7 +67,7 @@ class HeaderLinks extends Component {
           <ListItem className={classes.listItem} onClick={this.menuClose.bind(this)}>
             {!this.state.loggedIn &&
               <Button
-                onClick={this.props.openLogin}
+                onClick={() => { this.props.history.push('/compte') }}
                 className={classNames(classes.registerNavLink, classes.btnCompte)}
                 color="rose"
                 round>
@@ -109,4 +110,4 @@ class HeaderLinks extends Component {
   }
 }
 
-export default withStyles(combinedStyles)(HeaderLinks);
+export default withRouter(withStyles(combinedStyles)(HeaderLinks));

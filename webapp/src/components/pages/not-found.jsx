@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withStyles, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
-import CONFIG from '../config';
+import CONFIG from '../../config';
 
 const styles = theme => ({
 

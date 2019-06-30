@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { Helmet } from "react-helmet";
-import CONFIG from '../config';
+import CONFIG from '../../config';
+import requiredAuth from "../../services/required-auth";
 
 const styles = theme => ({
 
@@ -26,4 +27,4 @@ class AccountPage extends Component {
     );
   }
 }
-export default withStyles(styles)(AccountPage);
+export default (requiredAuth()(withStyles(styles)(AccountPage)));
