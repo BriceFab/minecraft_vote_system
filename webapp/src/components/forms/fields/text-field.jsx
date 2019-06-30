@@ -37,6 +37,7 @@ const styles = theme => ({
             color: "#AAAAAA"
         }
     },
+    disabled: {},
 });
 
 class TextField extends Component {
