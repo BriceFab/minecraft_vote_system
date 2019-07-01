@@ -8,6 +8,7 @@ import theme from './templates/theme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import * as serviceConsole from './services/console';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -21,4 +22,5 @@ ReactDOM.render(
     document.querySelector('#root'),
 );
 
+serviceConsole.register();
 serviceWorker.unregister();
