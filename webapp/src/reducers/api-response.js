@@ -20,6 +20,5 @@ export default function reducer(state = initialState, action) {
             state.response = action.payload.response;
             return {...state};
     }
-
-    return state;
+    
 }

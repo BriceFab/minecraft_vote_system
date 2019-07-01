@@ -19,6 +19,7 @@ module.exports = {
     jwt: {
         encryption: process.env.JWT_ENCRYPTION || '!].9HqW[PFyxv9yq',
         expiration: process.env.JWT_EXPIRATION || 3600,
+        request_encryption: process.env.JWT_REQUEST_ENCRYPTION || 'ib5[7T8^jW(N8@Dz',
     },
     log: {
         http_format: process.env.LOG_HTTP_FORMAT || ':method :url :status - :remote-addr :user-agent - :response-time ms',

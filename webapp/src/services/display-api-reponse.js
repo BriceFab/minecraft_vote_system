@@ -1,7 +1,7 @@
 import {toast} from "react-toastify";
 
 export const displayError = (error) => {
-    let messages = error.response.data.error.messages;
+    let messages = error.response ? error.response.data.error.messages : ['unknown error'];
 
     messages.forEach(message => {
         toast.error(message.toString());

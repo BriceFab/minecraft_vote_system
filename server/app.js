@@ -12,17 +12,19 @@ const geoip = require('geoip-lite');
 const httpStatus = require('http-status');
 const proxy = require('express-http-proxy');
 const rateLimit = require('express-rate-limit');
+const requestInterceptor = require('./middleware/interceptor').requestInterceptor;
+const responseInterceptor = require('./middleware/interceptor').responseInterceptor;
 
 const app = express();
 
 //Proxy
-app.set('trust proxy', '127.0.0.1');
+app.set('trust proxy', ['127.0.0.1', '172.22.22.59']);
 
 if (config.app.env === 'dev') {
     app.use('/test/login', proxy('www.scandicraft.net', {
         proxyReqOptDecorator: () => {
             return Promise.reject('proxy are not allowed');
-          },
+        },
         proxyErrorHandler: (err, res, next) => {
             response.sendError(res, err, httpStatus.METHOD_NOT_ALLOWED);
         },
@@ -37,7 +39,7 @@ const voteLimiter = rateLimit({
         response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
     }
 });
-   
+
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100,
@@ -45,13 +47,13 @@ const limiter = rateLimit({
         response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
     }
 });
-   
+
 app.use('/vote', voteLimiter);
 app.use(limiter);
 
 //Logs
 app.use(logger(config.log.http_format, {
-  stream: log.logHttp
+    stream: log.logHttp
 }));
 
 //Body
@@ -60,6 +62,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Passport
 app.use(passport.initialize({}));
+
+//Request interceptor
+app.use(requestInterceptor);
+
+//Response interceptor
+app.use(responseInterceptor);
 
 //Database
 sequelize
@@ -76,7 +84,7 @@ sequelize
 if (config.app.env === 'dev') {
     const force = JSON.parse(config.db.force);
 
-    sequelize.sync({force: force}).then((res) => {
+    sequelize.sync({ force: force }).then((res) => {
         console.log(`clean db ${force}`);
 
         if (force) {
