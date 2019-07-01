@@ -22,7 +22,7 @@ module.exports.login = async (req, res) => {
     const {username, email, password} = req.body;
 
     user.findUser(username, email).then(res_user => {
-        if (!res_user) return response.sendError(res, 'user not found');
+        if (!res_user) return response.sendError(res, 'invalid password or username');
 
         const passwordMatch = user.comparePassword(password, res_user.password);
         if (passwordMatch) {

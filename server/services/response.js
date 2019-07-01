@@ -7,49 +7,49 @@ module.exports.sendSuccess = (res, data, code) => {
     });
 };
 
-module.exports.sendError = (res, err, code) => {
-    if (err === undefined) {
-        err = 'unknown error';
-        code = httpStatus.UNKNOWN_ERROR;
-    }
-    
+module.exports.sendError = (res, messages, type, code = httpStatus.UNKNOWN_ERROR) => {
+    if (messages === undefined) messages = 'unknown error';
+    if (type === undefined) type = 'reponse';
+
     res.status(code ? code : httpStatus.UNAUTHORIZED).json({
         success: false,
-        error: err
+        error: {
+            type: type,
+            messages: typeof messages === 'string' ? messages.split() : messages
+        }
     });
 };
 
 module.exports.sendSequelizeError = (res, err) => {
-    let error = {};
+    let errors = [];
     if (err.errors !== undefined && err.errors.length > 0) {
-        const errors = err.errors.map(error => error.message);
-        error = {
-            type: 'orm',
-            messages: errors
-        };
+        errors = err.errors.map(error => error.message);
+        // error = {
+        //     type: 'orm',
+        //     messages: errors
+        // };
     } else {
-        error = err;
+        errors = err;
     }
-    this.sendError(res, error, httpStatus.UNPROCESSABLE_ENTITY);
+    this.sendError(res, errors, 'orm', httpStatus.UNPROCESSABLE_ENTITY);
 };
 
 module.exports.sendValidatorError = (res, err) => {
-    let error = {};
-
+    let errors = [];
     if (err.length > 0) {
-        const errors = [];
+        // const errors = [];
         err.forEach(error => {
             const actError = `${error.param}: ${error.msg}`;
             if (!errors.includes(actError)) {
                 errors.push(actError);
             }
         });
-        error = {
-            type: 'validator',
-            messages: errors
-        };
+        // error = {
+        //     type: 'validator',
+        //     messages: errors
+        // };
     } else {
-        error = err;
+        errors = err;
     }
-    this.sendError(res, error, httpStatus.UNPROCESSABLE_ENTITY);
-}
+    this.sendError(res, errors, 'validator', httpStatus.UNPROCESSABLE_ENTITY);
+};

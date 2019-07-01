@@ -11,7 +11,7 @@ export const register = (user) => (dispatch) => {
         dispatch({
             type: ACTIONS.USER.REGISTER,
             payload: res.data
-        })
+        });
     }, (error) => {
         toast.error('Erreur')
 
@@ -21,15 +21,21 @@ export const register = (user) => (dispatch) => {
 
 export const login = (user) => dispatch => {
     axiosPost(`${CONFIG.API.BASE_URL}/user/login`, user).then((res) => {
-        toast.success('succes')
-
         dispatch({
             type: ACTIONS.USER.LOGIN,
             payload: res.data
-        })
+        });
+        dispatch({
+            type: ACTIONS.API.SUCCESS,
+            payload: {
+                response: res,
+                messages: 'Login avec succès'
+            }
+        });
     }, (error) => {
-        toast.error('Erreur')
-
-        console.log('erreur');
+        dispatch({
+            type: ACTIONS.API.ERROR,
+            payload: error
+        });
     });
 };
