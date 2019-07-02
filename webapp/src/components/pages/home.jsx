@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../../config';
-import i18n from "i18next";
+// import i18next from 'i18next';
 
 const styles = theme => ({
 
@@ -22,7 +22,7 @@ class HomePage extends Component {
 
                 Home page<br />
                 todo
-                {i18n.t('Welcome to React')}
+                {/* {i18next.t('key')} */}
             </>
         );
     }

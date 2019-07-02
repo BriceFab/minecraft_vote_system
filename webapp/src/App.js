@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import HeaderBar from './components/header-bar';
 import { withStyles } from '@material-ui/core';
 import { withRouter, Route, Switch } from 'react-router-dom';
@@ -15,7 +15,7 @@ import AccountPage from './components/pages/account';
 import NotFoundPage from './components/pages/not-found';
 
 // import "./templates/material-kit/assets/scss/material-kit-react.scss?v=1.7.0";
-import 'react-toastify/dist/ReactToastify.min.css'; 
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
 });
@@ -27,7 +27,7 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <>
+      <Suspense fallback={<div>Chargement..</div>}>
         <Helmet>
           <title>{CONFIG.APP.NAME}</title>
           <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/`} />
@@ -51,7 +51,7 @@ class App extends Component {
         <ToastContainer />
 
         <Footer />
-      </>
+      </Suspense>
     );
   }
 }

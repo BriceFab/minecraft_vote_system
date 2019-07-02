@@ -12,4 +12,11 @@ export function register() {
             _privateError.apply(console, arguments);
         }
     };
+
+    var _privateWarn = console.warn;
+    console.warn = function (message) {
+        if (process.env.NODE_ENV === 'development') {
+            _privateWarn.apply(console, arguments);
+        }
+    };
 }

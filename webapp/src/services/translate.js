@@ -1,30 +1,25 @@
-import i18n from 'i18next';
-import Backend from 'i18next-xhr-backend';
+import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import CONFIG from '../config';
-import { axiosPost } from './axios';
+import translate_fr from '../translates/fr.json';
+import translate_en from '../translates/en.json';
+import CONFIG from '../config.js';
 
-i18n
-    .use(Backend)
-    .use(LanguageDetector)
-    .init({
-        fallbackLng: 'fr',
-        debug: process.env.NODE_ENV === 'development',
-        backend: {
-            loadPath: `${CONFIG.API.BASE_URL}/translate/{{lng}}`
-        },
-        saveMissing: true,
-        missingKeyHandler: function (lng, ns, key, fallbackValue) {
-            console.log('translate missing', key, lng);
-            axiosPost(`/translate/${lng}`, { term: key });
-        },
-        // fallbackLng: localStorage.getItem(''),
-        whitelist: ['fr', 'en'],
-        keySeparator: false,
-
-        interpolation: {
-            escapeValue: false,
-        },
-    });
-
-export default i18n;
+i18next
+  .use(LanguageDetector)
+  .init({
+    lng: 'fr',
+    fallbackLng: 'fr',
+    debug: process.env.NODE_ENV === 'development' && CONFIG.TRANSLATE.DEBUG,
+    saveMissing: process.env.NODE_ENV === 'development',
+    missingKeyHandler: (lng, ns, key, fallbackValue) => {
+      console.warn(`key {${key}} is missing for ${lng}`);
+    },
+    resources: {
+      fr: {
+        translation: translate_fr
+      },
+      en: {
+        translation: translate_en
+      }
+    },
+  });
