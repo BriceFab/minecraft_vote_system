@@ -13,6 +13,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from '../forms/login';
 import RegisterForm from '../forms/register';
+import { connect } from 'react-redux';
+import { toast } from "react-toastify";
 
 const styles = theme => ({
     appBar: {
@@ -48,6 +50,13 @@ class LoginPage extends Component {
         }
     }
 
+    componentWillMount() {
+        if (this.props.loggedIn) {
+            this.props.history.push('/');
+            toast.warn('Vous êtes déjà connecté');
+        }
+    }
+
     swichForm() {
         this.setState({ isLoginForm: !this.state.isLoginForm })
     }
@@ -75,7 +84,7 @@ class LoginPage extends Component {
                 <Grid container justify={'center'} className={classes.cardTop}>
                     <Grid item>
                         <Card>
-                            {isLoginForm && <LoginForm />}
+                            {isLoginForm && <LoginForm history={this.props.history} />}
                             {!isLoginForm && <RegisterForm />}
                         </Card>
                     </Grid>
@@ -85,4 +94,9 @@ class LoginPage extends Component {
         );
     }
 }
-export default withStyles(combinedStyles)(LoginPage);
+
+const mapStateToProps = (state) => ({
+    loggedIn: state.user.loggedIn && state.user.token,
+});
+
+export default connect(mapStateToProps)(withStyles(combinedStyles)(LoginPage));

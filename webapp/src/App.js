@@ -9,10 +9,12 @@ import Footer from './components/footer';
 import { Helmet } from "react-helmet";
 import CONFIG from './config';
 import { ToastContainer } from 'react-toastify';
+import { isMobile } from "react-device-detect";
 import HomePage from './components/pages/home';
 import LoginPage from './components/pages/login';
 import AccountPage from './components/pages/account';
 import NotFoundPage from './components/pages/not-found';
+import LogoutPage from './components/pages/logout';
 
 // import "./templates/material-kit/assets/scss/material-kit-react.scss?v=1.7.0";
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -44,11 +46,15 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/accueil" component={HomePage} />
             <Route path="/compte" component={AccountPage} />
+            <Route path="/logout" component={LogoutPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>
 
-        <ToastContainer />
+        <ToastContainer
+          position={isMobile ? 'top-right' : 'bottom-left'}
+          autoClose={3000}
+        />
 
         <Footer />
       </Suspense>

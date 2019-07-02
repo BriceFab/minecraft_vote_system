@@ -4,29 +4,19 @@ import { Redirect } from 'react-router-dom';
 
 export default () => Component => {
     class RequiredAuth extends React.Component {
-
         render() {
-            const { authenticating, loggedIn, error, ...passThroughProps } = this.props;
+            const { loggedIn, ...passThroughProps } = this.props;
 
-            if (authenticating) {
-                return (
-                    <div>
-                        Login en cours
-                    </div>
-                );
-            } else if (!loggedIn || error) {
+            if (loggedIn) {
+                return <Component {...passThroughProps} />;
+            } else {
                 return <Redirect to={'/login'} />
             }
-            
-            return <Component {...passThroughProps} />;
         }
-
     }
 
-    const mapStateToProps = (state, props) => ({
-        authenticating: state.user.loading,
-        loggedIn: state.user.app_user !== null,
-        error: state.user.error
+    const mapStateToProps = (state) => ({
+        loggedIn: state.user.loggedIn && state.user.token,
     });
 
     return connect(mapStateToProps)(RequiredAuth);

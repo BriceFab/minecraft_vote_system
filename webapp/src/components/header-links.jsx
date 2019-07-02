@@ -1,27 +1,19 @@
-/*eslint-disable*/
 import React, { Component } from "react";
-// react components for routing our app without refresh
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
-
-// @material-ui/core components
+import { connect } from 'react-redux';
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-
-// @material-ui/icons
-import { Apps } from "@material-ui/icons";
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
-
-// core components
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CustomDropdown from "../templates/material-kit/components/CustomDropdown/CustomDropdown.jsx";
 import Button from '../templates/material-kit/components/CustomButtons/Button';
-
 import headerLinksStyle from '../templates/material-kit/assets/jss/material-kit-react/components/headerLinksStyle';
-import LinkButton from "../templates/LinkButton.jsx";
 import combineStyles from "../services/combineStyles.js";
 import classNames from 'classnames';
+import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
   btnCompte: {
@@ -33,14 +25,6 @@ const styles = theme => ({
 const combinedStyles = combineStyles(headerLinksStyle, styles);
 
 class HeaderLinks extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loggedIn: false,
-    }
-  }
 
   menuClose() {
     if (this.props.menuClose) {
@@ -64,15 +48,41 @@ class HeaderLinks extends Component {
               <WhatshotIcon className={classes.icons} /> Promouvoir
             </Link>
           </ListItem>
-          <ListItem className={classes.listItem} onClick={this.menuClose.bind(this)}>
-            {!this.state.loggedIn &&
+          <ListItem className={classes.listItem}>
+            {!this.props.loggedIn &&
               <Button
-                onClick={() => { this.props.history.push('/compte') }}
+                onClick={() => { this.props.history.push('/login'); this.menuClose.bind(this); }}
                 className={classNames(classes.registerNavLink, classes.btnCompte)}
                 color="rose"
                 round>
                 Compte
               </Button>
+            }
+            {this.props.loggedIn &&
+              <CustomDropdown
+                noLiPadding
+                buttonText={'Compte'}
+                buttonProps={{
+                  className: classes.navLink,
+                  color: "transparent"
+                }}
+                buttonIcon={AccountCircleIcon}
+                dropdownList={[
+                  <Link to="/management" className={classes.dropdownLink} onClick={this.menuClose.bind(this)}>
+                    Management
+                  </Link>,
+                  <Link to="/crediter" className={classes.dropdownLink} onClick={this.menuClose.bind(this)}>
+                    Crediter
+                  </Link>,
+                  <Divider />,
+                  <Link to="/profil" className={classes.dropdownLink} onClick={this.menuClose.bind(this)}>
+                    Mon profil
+                  </Link>,
+                  <Link to="/logout" className={classes.dropdownLink} onClick={this.menuClose.bind(this)}>
+                    Deconnexion
+                   </Link>,
+                ]}
+              />
             }
             {/* <LinkButton to={this.state.loggedIn ? '/compte' : '/login'}
                           className={classNames(classes.registerNavLink, classes.btnCompte)}
@@ -81,33 +91,14 @@ class HeaderLinks extends Component {
                           Compte
               </LinkButton> */}
           </ListItem>
-          {/* <ListItem className={classes.listItem}>
-            <CustomDropdown
-              noLiPadding
-              buttonText="Components"
-              buttonProps={{
-                className: classes.navLink,
-                color: "transparent"
-              }}
-              buttonIcon={Apps}
-              dropdownList={[
-                <Link to="/" className={classes.dropdownLink}>
-                  All components
-                </Link>,
-                <a
-                  href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
-                  target="_blank"
-                  className={classes.dropdownLink}
-                >
-                  Documentation
-                </a>
-              ]}
-            />
-          </ListItem> */}
         </List>
       </>
     );
   }
 }
 
-export default withRouter(withStyles(combinedStyles)(HeaderLinks));
+const mapStateToProps = (state) => ({
+  loggedIn: state.user.loggedIn && state.user.token,
+});
+
+export default connect(mapStateToProps)(withRouter(withStyles(combinedStyles)(HeaderLinks)));

@@ -22,14 +22,17 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 class LoginForm extends Component {
   onSubmit({ ...props }) {
     //TODO VALIDATOR
-    console.log('USER', props);
-
-    this.props.login(props);
-
+    this.props.login(props, this.props.history).then((res) => {
+      if (res.success) {
+        this.props.history.push('/');
+      }
+    });
   }
 
   render() {
     const { classes, handleSubmit, pristine, submitting } = this.props;
+
+    console.log(this.props.test)
 
     return (
       <form className={classes.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>

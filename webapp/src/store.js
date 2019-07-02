@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { reducer as reduxFormReducer } from 'redux-form';
 import userReducer from './reducers/user';
 import apiReducer from './reducers/api-response';
+import { setToken } from './actions/user';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,12 +16,9 @@ const store = createStore(
     composeEnhancers(applyMiddleware(thunk)),
 );
 
-// Hydrate the authToken from localStorage if it exist
-// const loadedToken = loadToken();
-// if (loadedToken) {
-//     const token = loadedToken;
-//     store.dispatch(setToken(token));
-//     store.dispatch(refreshToken());
-// }
+const token = localStorage.getItem('token');
+if (token) {
+    store.dispatch(setToken(token));
+}
 
 export default store;

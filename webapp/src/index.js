@@ -23,5 +23,7 @@ ReactDOM.render(
     document.querySelector('#root'),
 );
 
-serviceConsole.register();
+if (process.env.NODE_ENV !== 'development') {
+    serviceConsole.register();
+}
 serviceWorker.unregister();
