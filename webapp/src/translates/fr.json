@@ -2,7 +2,7 @@
     "invalid password or username": "Mot de passe ou utilisateur invalide",
     "username must be unique": "Cette utilisateur existe déjà",
     "email must be unique": "Cette utilisateur existe déjà",
-    "connection refused": "Connexion avec le serveur refusée",
+    "connection refused": "Connexion avec le serveur refusée. Réessayez plus tard",
     "confirm your email": "Vous devez confirmer votre adresse email",
-    "too many requests, please try again later": "Vous avez envoyer trop de requêtes. Réssayer plus tard"
+    "too many requests, please try again later": "Vous avez envoyer trop de requêtes. Réessayez plus tard"
 }

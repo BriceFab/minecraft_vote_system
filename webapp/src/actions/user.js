@@ -51,12 +51,9 @@ export const login = (user) => dispatch => {
     }, (error) => {
         let login_try = localStorage.getItem('login_try');
         if (error.response && error.response.data.error.type === 'limit') {
-            let retry_in = 0;
-
-            var last_try_date = moment(localStorage.getItem('login_time')).add(CONFIG.API.LOGIN.RETRY_TIME, 'minutes');
-            var act_date = moment(new Date());
-
-            retry_in = last_try_date.diff(act_date, 'minutes');
+            const last_try_date = moment(localStorage.getItem('login_time')).add(CONFIG.API.LOGIN.RETRY_TIME, 'minutes');
+            const act_date = moment(new Date());
+            const retry_in = last_try_date.diff(act_date, 'minutes');
 
             toast.error(`Vous avez dépassé la limite d'essai de connexion. Réssayer dans ${retry_in ? retry_in : CONFIG.API.LOGIN.RETRY_TIME} minutes`);
             localStorage.removeItem('login_try');
@@ -69,10 +66,7 @@ export const login = (user) => dispatch => {
                     toast.warn(`Essai du mot de passe n°${login_try}/${CONFIG.API.LOGIN.MAX_TRY}`);
                     localStorage.setItem('login_try', login_try);
 
-                    if (localStorage.getItem('login_time')) {
-                        localStorage.removeItem('login_time');
-                    }
-
+                    localStorage.removeItem('login_time');
                     if (login_try >= CONFIG.API.LOGIN.MAX_TRY) {
                         localStorage.setItem('login_time', moment(new Date()));
                     }
