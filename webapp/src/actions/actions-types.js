@@ -3,6 +3,7 @@ export const ACTIONS = {
         REGISTER: "REGISTER",
         LOGIN: "LOGIN",
         SET_TOKEN: "SET_TOKEN",
+        LOGOUT: "LOGOUT",
     },
     API: {
         SUCCESS: "SUCCESS",

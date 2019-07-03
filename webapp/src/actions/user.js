@@ -47,3 +47,9 @@ export const login = (user, history = null) => dispatch => {
         });
     });
 };
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: ACTIONS.USER.LOGOUT,
+    });
+};

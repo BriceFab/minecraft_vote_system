@@ -10,9 +10,9 @@ import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit
 import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
 import TextField from './fields/text-field';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
-import {login} from '../../actions/user';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { login } from '../../actions/user';
 
 const styles = theme => ({
 });
@@ -31,8 +31,6 @@ class LoginForm extends Component {
 
   render() {
     const { classes, handleSubmit, pristine, submitting } = this.props;
-
-    console.log(this.props.test)
 
     return (
       <form className={classes.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>

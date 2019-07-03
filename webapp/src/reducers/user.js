@@ -19,6 +19,12 @@ export default function reducer(state = initialState, action) {
             }
             state.token = token;
             state.loggedIn = true;
-            return state;
+            return {...state};
+        case ACTIONS.USER.LOGOUT:
+            localStorage.removeItem('token');
+            state.loggedIn = false;
+            state.token = null;
+            state.current = null;
+            return {...state};
     }
 }
