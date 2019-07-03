@@ -79,7 +79,7 @@ class HeaderLinks extends Component {
                     Mon profil
                   </Link>,
                   <Link to="/logout" className={classes.dropdownLink} onClick={this.menuClose.bind(this)}>
-                    Deconnexion
+                    Déconnexion
                    </Link>,
                 ]}
               />

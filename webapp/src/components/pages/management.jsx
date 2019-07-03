@@ -8,14 +8,14 @@ const styles = theme => ({
 
 });
 
-class AccountPage extends Component {
+class ManagementPage extends Component {
   render() {
     // const {classes} = this.props;
 
     return (
       <>
         <Helmet>
-          <title>{CONFIG.APP.NAME} - Mon compte</title>
+          <title>{CONFIG.APP.NAME} - Management</title>
           <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/compte`} />
           <meta charSet="utf-8" />
           <meta name="description" content="TODO" />
@@ -27,4 +27,4 @@ class AccountPage extends Component {
     );
   }
 }
-export default (requiredAuth()(withStyles(styles)(AccountPage)));
+export default (requiredAuth()(withStyles(styles)(ManagementPage)));

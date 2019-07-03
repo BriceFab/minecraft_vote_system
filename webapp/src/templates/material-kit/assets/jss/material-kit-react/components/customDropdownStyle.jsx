@@ -134,17 +134,17 @@ const customDropdownStyle = theme => ({
     display: "inline-block",
     width: "0",
     height: "0",
-    marginLeft: "4px",
+    marginLeft: 8,
     verticalAlign: "middle",
     borderTop: "4px solid",
     borderRight: "4px solid transparent",
-    borderLeft: "4px solid transparent"
+    borderLeft: "4px solid transparent",
   },
   caretActive: {
     transform: "rotate(180deg)"
   },
   caretRTL: {
-    marginRight: "4px"
+    marginRight: 4,
   },
   dropdownHeader: {
     display: "block",

@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import i18next from 'i18next';
 
 export const displayError = (error) => {
     let messages = [];
@@ -14,9 +15,11 @@ export const displayError = (error) => {
         messages = ['error message'];
     }
 
-    messages.forEach(message => {
-        toast.error(message.toString());
-    });
+    // messages.forEach(message => {
+        // toast.error(i18next.t(message.toString()));
+    // });
+
+    toast.error(i18next.t(messages[0].toString()));
 
     return messages;
 };
@@ -25,7 +28,7 @@ export const displaySuccess = (messages) => {
     messages = typeof messages === 'string' ? messages.split() : messages;
 
     messages.forEach(message => {
-        toast.success(message.toString());
+        toast.success(i18next.t(message.toString()));
     });
 
     return messages;

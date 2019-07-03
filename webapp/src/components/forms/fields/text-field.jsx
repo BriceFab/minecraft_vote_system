@@ -47,7 +47,6 @@ class TextField extends Component {
 
         return (
             <>
-                {/* <div>Error</div> */}
                 <FormControl {...formControlProps} className={classes.formControl}>
                     {label !== undefined ? (
                         <InputLabel
@@ -61,7 +60,7 @@ class TextField extends Component {
                         {...input}
                         {...inputProps}
                         {...otherProps}
-                        error={touched && error}
+                        error={touched && error !== undefined}
                         className={classNames(classes.underline, classes.input)}
                         endAdornment={<InputAdornment position="end">{icon}</InputAdornment>}
                     />

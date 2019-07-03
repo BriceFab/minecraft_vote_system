@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { isMobile } from "react-device-detect";
 import HomePage from './components/pages/home';
 import LoginPage from './components/pages/login';
-import AccountPage from './components/pages/account';
+import ManagementPage from './components/pages/management';
 import NotFoundPage from './components/pages/not-found';
 import LogoutPage from './components/pages/logout';
 
@@ -35,7 +35,7 @@ class App extends Component {
           <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/`} />
           <meta charSet="utf-8" />
           <meta name="description" content="TODO" />
-          <meta name="keywords" cpntent="TODO" />
+          <meta name="keywords" content="TODO" />
         </Helmet>
 
         <HeaderBar />
@@ -43,10 +43,10 @@ class App extends Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LoginPage} />
             <Route path="/accueil" component={HomePage} />
-            <Route path="/compte" component={AccountPage} />
+            <Route path="/login" component={LoginPage} />
             <Route path="/logout" component={LogoutPage} />
+            <Route path="/management" component={ManagementPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>

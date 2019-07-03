@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import * as serviceConsole from './services/console';
 import './services/translate';
+import './validators/messages';
 
 ReactDOM.render(
     <Provider store={store}>
