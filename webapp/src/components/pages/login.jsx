@@ -85,7 +85,7 @@ class LoginPage extends Component {
                     <Grid item>
                         <Card>
                             {isLoginForm && <LoginForm history={this.props.history} />}
-                            {!isLoginForm && <RegisterForm />}
+                            {!isLoginForm && <RegisterForm showLogin={this.swichForm.bind(this)} />}
                         </Card>
                     </Grid>
                 </Grid>

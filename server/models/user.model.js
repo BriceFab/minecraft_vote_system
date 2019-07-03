@@ -11,9 +11,10 @@ module.exports = (sequelize, DataTypes) => {
                 isUUID: 4,
             }
         },
-        username: {type: DataTypes.STRING, allowNull: false, unique: true },
-        email: {type: DataTypes.STRING, allowNull: false, unique: true, validate: {isEmail: { msg: 'invalid email' }} },
-        password: {type: DataTypes.STRING, allowNull: false },
+        username: { type: DataTypes.STRING, allowNull: false, unique: true },
+        email: { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: { msg: 'invalid email' } } },
+        password: { type: DataTypes.STRING, allowNull: false },
+        confirmed: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
     });
 
     user.associate = (models) => {

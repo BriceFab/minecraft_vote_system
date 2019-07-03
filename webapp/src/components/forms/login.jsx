@@ -23,8 +23,7 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 
 class LoginForm extends Component {
   onSubmit({ ...props }) {
-    //TODO VALIDATOR
-    this.props.login(props, this.props.history).then((res) => {
+    this.props.login(props).then((res) => {
       if (res && res.success) {
         this.props.history.push('/');
       }

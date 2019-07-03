@@ -6,6 +6,10 @@ const CONFIG = {
     API: {
         BASE_URL: process.env.API_BASE_URL || 'http://172.22.22.59:3000',
         SECRET_ENCRYPTION: process.env.API_SECRET_ENCRYPTION,
+        LOGIN: {
+            MAX_TRY: 5,
+            RETRY_TIME: 15,
+        }
     },
     TRANSLATE: {
         DEBUG: process.env.TRANSLATE_DEBUG || false,

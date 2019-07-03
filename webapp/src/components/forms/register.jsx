@@ -24,11 +24,11 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 
 class RegisterForm extends Component {
   onSubmit({ ...props }) {
-    //TODO VALIDATOR
-    console.log('USER', props);
-
-    this.props.register(props);
-
+    this.props.register(props).then((res) => {
+      if (res && res.success) {
+        this.props.showLogin();
+      }
+    });
   }
 
   render() {

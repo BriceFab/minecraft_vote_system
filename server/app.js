@@ -36,7 +36,7 @@ const voteLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 50,
     handler: (req, res) => {
-        response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
+        response.sendError(res, 'too many requests, please try again later', 'limit', httpStatus.TOO_MANY_REQUESTS);
     }
 });
 
@@ -44,7 +44,7 @@ const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100,
     handler: (req, res) => {
-        response.sendError(res, 'too many requests, please try again later', httpStatus.TOO_MANY_REQUESTS);
+        response.sendError(res, 'too many requests, please try again later', 'limit', httpStatus.TOO_MANY_REQUESTS);
     }
 });
 
