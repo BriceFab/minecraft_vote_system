@@ -23,7 +23,7 @@ class LoginForm extends Component {
   onSubmit({ ...props }) {
     //TODO VALIDATOR
     this.props.login(props, this.props.history).then((res) => {
-      if (res.success) {
+      if (res && res.success) {
         this.props.history.push('/');
       }
     });
