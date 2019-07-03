@@ -1,3 +1,6 @@
 {
-    "invalid password or username": "Mot de passe ou utilisateur invalide"
+    "invalid password or username": "Mot de passe ou utilisateur invalide",
+    "username must be unique": "Cette utilisateur existe déjà",
+    "email must be unique": "Cette utilisateur existe déjà",
+    "connection refused": "Connection avec le serveur refusée"
 }

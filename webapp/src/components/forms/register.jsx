@@ -11,9 +11,11 @@ import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit
 import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
 import TextField from './fields/text-field';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
-import {register} from '../../actions/user';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { register } from '../../actions/user';
+import { validateForm } from "redux-form-validators";
+import userValidator from "../../validators/user.js";
 
 const styles = theme => ({
 });
@@ -87,10 +89,15 @@ class RegisterForm extends Component {
   }
 }
 
+const validate = validateForm({
+  username: userValidator.username,
+  email: userValidator.email,
+  password: userValidator.password,
+})
+
 const form = {
   form: 'RegisterForm',
-  // validate,
-  // asyncValidate,
+  validate,
 };
 
 const mapStateToProps = (state) => ({

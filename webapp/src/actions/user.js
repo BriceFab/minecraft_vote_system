@@ -1,6 +1,5 @@
 import { axiosPost } from '../services/axios';
 import { ACTIONS } from './actions-types';
-import { toast } from 'react-toastify';
 
 export const setToken = (token) => (dispatch) => {
     dispatch({
@@ -10,18 +9,23 @@ export const setToken = (token) => (dispatch) => {
 }
 
 export const register = (user) => (dispatch) => {
-    // TODO
     axiosPost(`user/register`, user).then((res) => {
-        toast.success('succes')
-
+        dispatch({
+            type: ACTIONS.API.SUCCESS,
+            payload: {
+                response: res,
+                messages: 'Compte créer avec succès'
+            }
+        });
         dispatch({
             type: ACTIONS.USER.REGISTER,
             payload: res.data
         });
     }, (error) => {
-        toast.error('Erreur')
-
-        console.log('erreur');
+        dispatch({
+            type: ACTIONS.API.ERROR,
+            payload: error
+        });
     });
 };
 

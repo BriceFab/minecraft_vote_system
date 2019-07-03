@@ -9,11 +9,12 @@ import CardFooter from "../../templates/material-kit/components/Card/CardFooter.
 import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/loginPage.jsx";
 import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
-import { validateForm, required, length } from 'redux-form-validators';
+import { validateForm } from 'redux-form-validators';
 import TextField from './fields/text-field';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { login } from '../../actions/user';
+import userValidator from "../../validators/user.js";
 
 const styles = theme => ({
 });
@@ -76,14 +77,13 @@ class LoginForm extends Component {
 }
 
 const validate = validateForm({
-  username: [required(), length({ min: 5, max: 20 })],
-  password: [required()],
+  username: userValidator.username,
+  password: userValidator.password,
 })
 
 const form = {
   form: 'LoginForm',
   validate,
-  // asyncValidate,
 };
 
 const mapStateToProps = (state) => ({
