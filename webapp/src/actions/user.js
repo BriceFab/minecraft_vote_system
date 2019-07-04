@@ -44,7 +44,7 @@ export const login = (user) => dispatch => {
             type: ACTIONS.API.SUCCESS,
             payload: {
                 response: res,
-                messages: 'Login avec succès'
+                messages: 'Vous êtes connecté'
             }
         });
         return res.data;

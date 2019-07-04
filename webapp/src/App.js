@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import HeaderBar from './components/header-bar';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import componentsStyle from "./templates/material-kit/assets/jss/material-kit-react/views/components.jsx";
 import classNames from 'classnames';
@@ -20,6 +20,10 @@ import LogoutPage from './components/pages/logout';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
+  contentNoMargin: {
+    marginLeft: 0,
+    marginRight: 0,
+  }
 });
 
 const combinedStyles = combineStyles(componentsStyle, styles);
@@ -29,7 +33,7 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <Suspense fallback={<div>Chargement..</div>}>
+      <Suspense fallback={<Typography component={'h1'}>Chargement..</Typography>}>
         <Helmet>
           <title>{CONFIG.APP.NAME}</title>
           <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/`} />
@@ -40,7 +44,7 @@ class App extends Component {
 
         <HeaderBar />
 
-        <div className={classNames(classes.main, classes.mainRaised)}>
+        <div className={classNames(classes.main, classes.mainRaised, isMobile ? classes.contentNoMargin : {})}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/accueil" component={HomePage} />
