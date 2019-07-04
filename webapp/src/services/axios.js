@@ -7,7 +7,7 @@ let instance = axios.create({
     baseURL: CONFIG.API.BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token') || "not set",
+        'Authorization': localStorage.getItem(CONFIG.STORAGE.TOKEN) || 'none',
     }
 });
 

@@ -26,7 +26,7 @@ module.exports.login = async (req, res) => {
 
         const passwordMatch = user.comparePassword(password, res_user.password);
         if (passwordMatch) {
-            if (!res_user.confirmed) return response.sendError(res, 'confirm your email');
+            // if (!res_user.confirmed) return response.sendError(res, 'confirm your email');
 
             const token = jwt.sign({id_user: res_user.id_user}, config.jwt.encryption, {expiresIn: config.jwt.expiration});
 

@@ -49,26 +49,38 @@ export const login = (user) => dispatch => {
         });
         return res.data;
     }, (error) => {
-        let login_try = localStorage.getItem('login_try');
+        const act_date = moment(new Date());
+        
         if (error.response && error.response.data.error.type === 'limit') {
-            const last_try_date = moment(localStorage.getItem('login_time')).add(CONFIG.API.LOGIN.RETRY_TIME, 'minutes');
-            const act_date = moment(new Date());
-            const retry_in = last_try_date.diff(act_date, 'minutes');
+            const last_try = localStorage.getItem(CONFIG.STORAGE.LOGIN_LAST_TRY);
+            const last_try_date = moment(last_try).add(CONFIG.API.LOGIN.RETRY_TIME, 'minutes');
+            let retry_in = last_try_date.diff(act_date, 'minutes');
+
+            if (retry_in > CONFIG.API.LOGIN.RETRY_TIME || retry_in < 0) {
+                retry_in = CONFIG.API.LOGIN.RETRY_TIME;
+                localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
+            }
+
+            if (!last_try) {
+                localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
+            }
 
             toast.error(`Vous avez dépassé la limite d'essai de connexion. Réssayer dans ${retry_in ? retry_in : CONFIG.API.LOGIN.RETRY_TIME} minutes`);
-            localStorage.removeItem('login_try');
+            localStorage.removeItem(CONFIG.STORAGE.LOGIN_TRY_COUNT);
         } else {
+            let login_try = localStorage.getItem(CONFIG.STORAGE.LOGIN_TRY_COUNT);
+
             if (!login_try) {
-                localStorage.setItem('login_try', 1);
+                localStorage.setItem(CONFIG.STORAGE.LOGIN_TRY_COUNT, 1);
             } else {
                 if (login_try < CONFIG.API.LOGIN.MAX_TRY) {
                     login_try++;
-                    toast.warn(`Essai du mot de passe n°${login_try}/${CONFIG.API.LOGIN.MAX_TRY}`);
-                    localStorage.setItem('login_try', login_try);
+                    toast.warn(`Essai de connexion n°${login_try}/${CONFIG.API.LOGIN.MAX_TRY}`);
+                    localStorage.setItem(CONFIG.STORAGE.LOGIN_TRY_COUNT, login_try);
 
-                    localStorage.removeItem('login_time');
+                    localStorage.removeItem(CONFIG.STORAGE.LOGIN_LAST_TRY);
                     if (login_try >= CONFIG.API.LOGIN.MAX_TRY) {
-                        localStorage.setItem('login_time', moment(new Date()));
+                        localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
                     }
                 }
             }
