@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
-import { FormControl, Input, InputAdornment, InputLabel, Typography } from "@material-ui/core";
+import { FormControl, Input, InputAdornment, InputLabel, Typography, Select } from "@material-ui/core";
 import { primaryColor } from "../../../templates/material-kit/assets/jss/material-kit-react";
 import classNames from 'classnames';
 
@@ -40,10 +40,10 @@ const styles = theme => ({
     disabled: {},
 });
 
-class SelectField extends Component {
+class TextField extends Component {
 
     render() {
-        const { classes, input, label, meta: { touched, error }, icon, labelProps, inputProps, formControlProps, ...otherProps } = this.props;
+        const { classes, input, label, meta: { touched, error }, icon, labelProps, inputProps, formControlProps, children, ...otherProps } = this.props;
 
         return (
             <>
@@ -56,18 +56,20 @@ class SelectField extends Component {
                             {label}
                         </InputLabel>
                     ) : null}
-                    <Input
+                    <Select
                         {...input}
                         {...inputProps}
                         {...otherProps}
                         error={touched && error !== undefined}
                         className={classNames(classes.underline, classes.input)}
                         endAdornment={<InputAdornment position="end">{icon}</InputAdornment>}
-                    />
+                    >
+                        {children}
+                    </Select>
                     {touched && error && <Typography color={'error'}>{error}</Typography>}
                 </FormControl>
             </>
         );
     }
 }
-export default withStyles(styles)(SelectField);
+export default withStyles(styles)(TextField);
