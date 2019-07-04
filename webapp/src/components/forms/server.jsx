@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { withStyles, Paper, Grid, Typography } from "@material-ui/core";
-import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
-import LockOutlined from "@material-ui/icons/LockOutlined";
-import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
-import CardBody from "../../templates/material-kit/components/Card/CardBody.jsx";
 import CardHeader from "../../templates/material-kit/components/Card/CardHeader.jsx";
-import CardFooter from "../../templates/material-kit/components/Card/CardFooter.jsx";
 import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/loginPage.jsx";
 import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
@@ -18,6 +13,8 @@ import { register } from '../../actions/user';
 import { validateForm } from "redux-form-validators";
 import userValidator from "../../validators/user.js";
 import { isMobile } from "react-device-detect";
+import classNames from 'classnames';
+import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
 
 const styles = theme => ({
   root: {
@@ -27,10 +24,13 @@ const styles = theme => ({
   },
   title: {
     textDecoration: 'underline',
-    fontWeight: 'bold'
+    fontWeight: 'bold !important'
   },
   gridItem: {
     paddingBottom: 15
+  },
+  cardTitle: {
+    marginTop: -75,
   }
 });
 
@@ -46,47 +46,102 @@ class ServerForm extends Component {
   }
 
   render() {
-    const { classes, handleSubmit, pristine, submitting } = this.props;
+    const { classes, handleSubmit, pristine, submitting, reset } = this.props;
 
     return (
       <Paper className={classes.root}>
-        <Grid container>
-          <Grid item xs={12} className={classes.gridItem}>
-            <Typography className={classes.title} color={'primary'} variant={'h3'} component={'h1'}>
-              Ajouter un serveur
-          </Typography>
-          </Grid>
-          <Grid item xs={12} className={classes.gridItem}>
-            <Field
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <Grid container>
+            <Grid item xs={12} className={classes.gridItem}>
+              <CardHeader color="primary" className={classNames(classes.cardHeader, classes.cardTitle)}>
+                <Typography variant={'h4'} component={'h1'} className={classes.title}>
+                  Ajouter un serveur
+              </Typography>
+              </CardHeader>
+            </Grid>
+            <Grid item xs={12} className={classes.gridItem}>
+              {/* <Field
               name="type"
               component={SelectField}
-              placeholder="Pseudonyme ou email"
-              icon={<Person className={classes.inputIconsColor} />}
+              placeholder="Type de serveur"
               formControlProps={{
                 fullWidth: true
               }}
               isClearable={true}
               touchOnChange={true}
             >
-            </Field>
+            </Field> */}
+            </Grid>
+            <Grid item xs={12} className={classes.gridItem}>
+              <Field
+                name="tags"
+                component={SelectField}
+                placeholder="Tags du serveur"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                isClearable={true}
+                touchOnChange={true}
+              >
+              </Field>
+            </Grid>
+            <Grid item xs={12} className={classes.gridItem}>
+              <Field
+                name="name"
+                component={TextField}
+                label="Nom du serveur"
+                icon={<Person className={classes.inputIconsColor} />}
+                formControlProps={{
+                  fullWidth: true
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} className={classes.gridItem}>
+              <Field
+                name="url"
+                component={TextField}
+                label="Url du site"
+                icon={<Person className={classes.inputIconsColor} />}
+                formControlProps={{
+                  fullWidth: true
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} className={classes.gridItem}>
+              <Field
+                name="ip"
+                component={TextField}
+                label="IP du serveur"
+                icon={<Person className={classes.inputIconsColor} />}
+                formControlProps={{
+                  fullWidth: true
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} className={classes.gridItem}>
+              <Field
+                name="description"
+                component={TextField}
+                label="Description"
+                icon={<Person className={classes.inputIconsColor} />}
+                formControlProps={{
+                  fullWidth: true
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} container justify={'flex-end'}>
+              <Button color={'rose'} onClick={() => {this.props.close()}}>
+                Annuler
+              </Button>
+              <Button disabled={pristine || submitting} onClick={reset}>
+                Réinitialiser
+              </Button>
+              <Button type={'submit'} color="primary" disabled={pristine || submitting}>
+                Ajouter
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.gridItem}>
-            <Field
-              name="name"
-              component={TextField}
-              label="Nom"
-              icon={<Person className={classes.inputIconsColor} />}
-              formControlProps={{
-                fullWidth: true
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.gridItem}>
-            <Button type={'submit'} simple color="primary" size="lg" disabled={pristine || submitting}>
-              Ajouter
-          </Button>
-          </Grid>
-        </Grid>
+        </form>
       </Paper>
     );
   }

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
-import { FormControl, Input, InputAdornment, InputLabel, Typography } from "@material-ui/core";
-import { primaryColor } from "../../../templates/material-kit/assets/jss/material-kit-react";
-import classNames from 'classnames';
+import { FormControl, Typography } from "@material-ui/core";
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Select from 'react-select';
@@ -14,38 +12,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles';
 
 const styles = theme => ({
-    formControl: {
-        marginTop: 10
-    },
-    labelRoot: {
-        color: "#797979 !important",
-        fontWeight: "400",
-        fontSize: 14,
-        letterSpacing: "unset",
-    },
-    underline: {
-        "&:hover:not($disabled):before,&:before": {
-            borderColor: "#D2D2D2 !important",
-            borderWidth: "1px !important"
-        },
-        "&:after": {
-            borderColor: primaryColor
-        }
-    },
-    input: {
-        color: "#495057",
-        height: "unset",
-        "&,&::placeholder": {
-            fontSize: "14px",
-            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-            fontWeight: "400",
-            lineHeight: "1.42857",
-            opacity: "1"
-        },
-        "&::placeholder": {
-            color: "#AAAAAA"
-        }
-    },
     disabled: {},
     root: {
         flexGrow: 1,
@@ -170,9 +136,9 @@ function Option(props) {
             ref={props.innerRef}
             selected={props.isFocused}
             component="div"
-            style={{
-                fontWeight: props.isSelected ? 500 : 400,
-            }}
+            // style={{
+                // fontWeight: props.isSelected ? 500 : 400,
+            // }}
             {...props.innerProps}
         >
             {props.children}
@@ -300,57 +266,31 @@ class SelectField extends Component {
     render() {
         const { classes, input, placeholder, meta: { touched, error }, icon, labelProps, inputProps, formControlProps, children, ...otherProps } = this.props;
 
-        console.log(touched)
-        console.log(error)
-        console.log(input)
-        console.log(otherProps)
-
         return (
-            <>
-                <FormControl {...formControlProps} className={classes.formControl}>
-                    {/* {label !== undefined ? (
-                        <InputLabel
-                            htmlFor={input.id}
-                            {...labelProps}
-                            className={classes.labelRoot}>
-                            {label}
-                        </InputLabel>
-                    ) : null} */}
-
-                    <Select
-                        // {...input}
-                        {...inputProps}
-                        {...otherProps}
-                        placeholder={placeholder}
-                        classes={classes}
-                        styles={selectStyles}
-                        // inputId="react-select-single"
-                        TextFieldProps={{
-                            // label: 'Country',
-                            InputLabelProps: {
-                                htmlFor: input.id,
-                                shrink: true,
-                            },
-                            // placeholder: 'Search a country (start with a)',
-                        }}
-                        options={suggestions}
-                        components={components}
-                        value={input.value}
-                        onChange={input.onChange}
-                        onBlur={() => input.onBlur()}
-                        error={true}
-                    />
-                    {/* <Select
-                        {...input}
-                        {...inputProps}
-                        {...otherProps}
-                        error={touched && error !== undefined}
-                        className={classNames(classes.underline, classes.input)}
-                        endAdornment={<InputAdornment position="end">{icon}</InputAdornment>}
-                    /> */}
-                    {touched && error && <Typography color={'error'}>{error}</Typography>}
-                </FormControl>
-            </>
+            <FormControl {...formControlProps} className={classes.formControl}>
+                <Select
+                    // {...input}
+                    {...inputProps}
+                    {...otherProps}
+                    placeholder={placeholder}
+                    classes={classes}
+                    styles={selectStyles}
+                    // inputId="react-select-single"
+                    TextFieldProps={{
+                        InputLabelProps: {
+                            htmlFor: input.id,
+                            shrink: true,
+                        },
+                    }}
+                    // isMulti
+                    options={suggestions}
+                    components={components}
+                    value={input.value}
+                    onChange={input.onChange}
+                    onBlur={() => input.onBlur()}
+                />
+                {touched && error && <Typography color={'error'}>{error}</Typography>}
+            </FormControl>
         );
     }
 }

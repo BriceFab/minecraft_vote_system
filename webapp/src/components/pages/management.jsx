@@ -3,7 +3,6 @@ import { withStyles, Paper, Grid, Modal, Fab, Tooltip } from "@material-ui/core"
 import { Helmet } from "react-helmet";
 import CONFIG from '../../config';
 import requiredAuth from "../../services/required-auth";
-import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
 import AddIcon from '@material-ui/icons/Add';
 import HeaderTitle from "../../templates/header-title";
 import TYPE from "../constants/modal";

@@ -46,27 +46,25 @@ class TextField extends Component {
         const { classes, input, label, meta: { touched, error }, icon, labelProps, inputProps, formControlProps, ...otherProps } = this.props;
 
         return (
-            <>
-                <FormControl {...formControlProps} className={classes.formControl}>
-                    {label !== undefined ? (
-                        <InputLabel
-                            htmlFor={input.id}
-                            {...labelProps}
-                            className={classes.labelRoot}>
-                            {label}
-                        </InputLabel>
-                    ) : null}
-                    <Input
-                        {...input}
-                        {...inputProps}
-                        {...otherProps}
-                        error={touched && error !== undefined}
-                        className={classNames(classes.underline, classes.input)}
-                        endAdornment={<InputAdornment position="end">{icon}</InputAdornment>}
-                    />
-                    {touched && error && <Typography color={'error'}>{error}</Typography>}
-                </FormControl>
-            </>
+            <FormControl {...formControlProps} className={classes.formControl}>
+                {label !== undefined ? (
+                    <InputLabel
+                        htmlFor={input.id}
+                        {...labelProps}
+                        className={classes.labelRoot}>
+                        {label}
+                    </InputLabel>
+                ) : null}
+                <Input
+                    {...input}
+                    {...inputProps}
+                    {...otherProps}
+                    error={touched && error !== undefined}
+                    className={classNames(classes.underline, classes.input)}
+                    endAdornment={<InputAdornment position="end">{icon}</InputAdornment>}
+                />
+                {touched && error && <Typography color={'error'}>{error}</Typography>}
+            </FormControl>
         );
     }
 }
