@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles, Paper, Grid, Typography, MenuItem } from "@material-ui/core";
+import { withStyles, Paper, Grid, Typography } from "@material-ui/core";
 import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
 import LockOutlined from "@material-ui/icons/LockOutlined";
@@ -60,15 +60,14 @@ class ServerForm extends Component {
             <Field
               name="type"
               component={SelectField}
-              label="Pseudonyme ou email"
+              placeholder="Pseudonyme ou email"
               icon={<Person className={classes.inputIconsColor} />}
               formControlProps={{
                 fullWidth: true
               }}
+              isClearable={true}
+              touchOnChange={true}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
             </Field>
           </Grid>
           <Grid item xs={12} className={classes.gridItem}>
@@ -82,6 +81,11 @@ class ServerForm extends Component {
               }}
             />
           </Grid>
+          <Grid item xs={12} className={classes.gridItem}>
+            <Button type={'submit'} simple color="primary" size="lg" disabled={pristine || submitting}>
+              Ajouter
+          </Button>
+          </Grid>
         </Grid>
       </Paper>
     );
@@ -89,9 +93,8 @@ class ServerForm extends Component {
 }
 
 const validate = validateForm({
-  username: userValidator.username,
-  email: userValidator.email,
-  password: userValidator.password,
+  name: userValidator.username,
+  type: userValidator.username,
 })
 
 const form = {

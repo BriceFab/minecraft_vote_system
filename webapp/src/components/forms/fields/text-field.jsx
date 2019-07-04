@@ -40,7 +40,7 @@ const styles = theme => ({
     disabled: {},
 });
 
-class SelectField extends Component {
+class TextField extends Component {
 
     render() {
         const { classes, input, label, meta: { touched, error }, icon, labelProps, inputProps, formControlProps, ...otherProps } = this.props;
@@ -70,4 +70,4 @@ class SelectField extends Component {
         );
     }
 }
-export default withStyles(styles)(SelectField);
+export default withStyles(styles)(TextField);
