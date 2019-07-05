@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import HeaderTitle from "../../templates/header-title";
 import TYPE from "../constants/modal";
 import ServerForm from '../forms/server';
+import DialogForm from "../../templates/dialog-form";
 // import classNames from 'classnames';
 // import componentsStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/components.jsx";
 // import combineStyles from "../../services/combineStyles";
@@ -70,6 +71,8 @@ class ManagementPage extends Component {
 
         <div className={classes.divider} />
 
+
+        <DialogForm />
         <Modal open={this.state.serverFormOpen} style={{ overflowY: "scroll" }} onClose={this.onCloseForm.bind(this)} disableAutoFocus={true}>
           <ServerForm type={this.state.type} close={this.onCloseForm.bind(this)} />
         </Modal>

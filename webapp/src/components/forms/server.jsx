@@ -23,7 +23,7 @@ const styles = theme => ({
     padding: 25,
   },
   title: {
-    textDecoration: 'underline',
+    // textDecoration: 'underline',
     fontWeight: 'bold !important'
   },
   gridItem: {
@@ -51,7 +51,7 @@ class ServerForm extends Component {
     return (
       <Paper className={classes.root}>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Grid container>
+          <Grid container xs={12}>
             <Grid item xs={12} className={classes.gridItem}>
               <CardHeader color="primary" className={classNames(classes.cardHeader, classes.cardTitle)}>
                 <Typography variant={'h4'} component={'h1'} className={classes.title}>
