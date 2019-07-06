@@ -99,3 +99,13 @@ export const logout = () => dispatch => {
         type: ACTIONS.USER.LOGOUT,
     });
 };
+
+export const token_expired = () => {
+    localStorage.removeItem(CONFIG.STORAGE.TOKEN);
+    toast.error('Votre session a expiré', {
+        onClose: () => {
+            window.location.href = '/login';
+            window.location.reload(true);
+        }
+    });
+};

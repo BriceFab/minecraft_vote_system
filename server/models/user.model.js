@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 module.exports = (sequelize, DataTypes) => {
     const user = sequelize.define('user', {
@@ -52,6 +54,18 @@ module.exports = (sequelize, DataTypes) => {
     user.beforeCreate((user, options) => {
         user.password = sequelize.models.user.generateHash(user.password);
     });
+
+    user.getCurrentUser = (req) => {
+        let id_user = null;
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.replace('Bearer ', '');
+            jwt.verify(token, config.jwt.encryption, (err, decode) => {
+                if (err) id_user = null;
+                id_user = decode.id_user;
+            });
+        }
+        return id_user;
+    };
 
     return user;
 };

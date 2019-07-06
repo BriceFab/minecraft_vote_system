@@ -1,39 +1,39 @@
 import axios from 'axios';
 import CONFIG from '../config';
 import jwt from 'jsonwebtoken';
-// import jwt_decode from 'jwt-decode';
+import { token_expired } from '../actions/user';
+import moment from 'moment';
 
 let instance = axios.create({
     baseURL: CONFIG.API.BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem(CONFIG.STORAGE.TOKEN) || 'none',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem(CONFIG.STORAGE.TOKEN) || 'none'}`,
     }
 });
 
 instance.interceptors.request.use((config) => {
-    // console.log("axios config", config);
-    try {
-        // const token = localStorage.getItem("token");
-        // // console.log("token", token)
+    //verify token has expired
+    let token = config.headers.Authorization.replace('Bearer ', '') || localStorage.getItem(CONFIG.STORAGE.TOKEN);
+    if (token === 'none') {
+        token = localStorage.getItem(CONFIG.STORAGE.TOKEN);
+    }
 
-        // if (token) {
-        //     let decoded = jwt_decode(token);
-        //     // console.log("decoded", decoded)
-        //     // console.log("check time", Date.now() / 1000)
+    if (token !== null) {
+        try {
+            let decoded = jwt.decode(token);
 
-        //     if (Date.now() / 1000 > decoded.exp) {
-        //         console.log("token expired");
+            if (Date.now() / 1000 > decoded.exp) {
+                console.log("token expired");
 
-        //         clearToken();
-        //         window.location.href = '/login';
-        //         window.location.reload(true);
-        //     } else {
-        //         // console.log("not expired")
-        //     }
-        // }
-    } catch (err) {
-        console.log("no token", err)
+                token_expired();
+            } else {
+                // console.log("token not expired");
+            }
+        } catch (err) {
+            console.log('token decode', err)
+        }
     }
 
     //encrypt request
@@ -76,9 +76,9 @@ export const axiosPost = (url, data) => {
 };
 
 export const axiosPut = (url, data) => {
-    return instance.put(url, data)
+    return instance.put(url, data);
 };
 
 export const axiosDelete = (url, data) => {
-    return instance.delete(url, { data: data })
+    return instance.delete(url, data);
 };

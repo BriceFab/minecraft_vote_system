@@ -112,11 +112,11 @@ class ServerForm extends Component {
 
 const validate = validateForm({
   name: serverValidator.name,
-  url: serverValidator.url,
-  ip: serverValidator.ip,
-  description: serverValidator.description,
-  banner: serverValidator.banner,
-  id_type: serverValidator.id_type,
+   url: serverValidator.url,
+   ip: serverValidator.ip,
+   description: serverValidator.description,
+   banner: serverValidator.banner,
+   id_type: serverValidator.id_type,
 })
 
 const form = {

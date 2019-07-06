@@ -1,42 +1,12 @@
 const response = require('../services/response');
-const config = require('../config/config');
-const jwt = require('jsonwebtoken');
-const {user} = require('../models');
+const { user, server } = require('../models');
 
-/**
- * TODO validation email
- * captcha or CSRF ?
- */
-module.exports.register = async (req, res) => {
-    user.create(req.body).then(res_user => {
-        return response.sendSuccess(res, 'created');
+module.exports.add = async (req, res) => {
+    const id_user = user.getCurrentUser(req)
+
+    server.create({...req.body, id_user}).then(res_server => {
+        response.sendSuccess(res, res_server);
     }).catch(error => {
         return response.sendSequelizeError(res, error);
-    });
-};
-
-/**
- * TODO Check if user has validate the email
- */
-module.exports.login = async (req, res) => {
-    const {username, email, password} = req.body;
-
-    user.findUser(username, email).then(res_user => {
-        if (!res_user) return response.sendError(res, 'invalid password or username');
-
-        const passwordMatch = user.comparePassword(password, res_user.password);
-        if (passwordMatch) {
-            // if (!res_user.confirmed) return response.sendError(res, 'confirm your email');
-
-            const token = jwt.sign({id_user: res_user.id_user}, config.jwt.encryption, {expiresIn: config.jwt.expiration});
-
-            response.sendSuccess(res, {
-                token: token,
-            });
-        } else {
-            response.sendError(res, 'invalid password or username');
-        }
-    }).catch(error => {
-        return response.sendSequelizeError(res, error);
-    });
+    })
 };

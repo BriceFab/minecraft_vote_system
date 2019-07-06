@@ -1,5 +1,6 @@
 import { ACTIONS } from "../actions/actions-types";
 import CONFIG from "../config";
+import { logout } from "../actions/user";
 
 const initialState = {
     loggedIn: false,
@@ -22,12 +23,13 @@ export default function reducer(state = initialState, action) {
             }
             state.token = token;
             state.loggedIn = true;
-            return {...state};
+            return { ...state };
         case ACTIONS.USER.LOGOUT:
             localStorage.removeItem(CONFIG.STORAGE.TOKEN);
             state.loggedIn = false;
             state.token = null;
             state.current = null;
-            return {...state};
+            console.log('logout')
+            return { ...state };
     }
 }

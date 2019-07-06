@@ -6,7 +6,13 @@ export const displayError = (error) => {
 
     if (error.response) {
         console.log('error response', error.response);
-        messages = error.response.data.error.messages;
+        if (error.response.status === 401) {
+            messages = [`Vous n'êtes pas autorisé à effectuer cette action`];
+        } else if (error.response.data.error && error.response.data.error.messages) {
+            messages = error.response.data.error.messages;
+        } else {
+            messages = [`Une erreur est survenue`];
+        }
     } else if (error.request) {
         console.log('error request', error.request);
         messages = ['connection refused'];

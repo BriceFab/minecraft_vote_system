@@ -1,19 +1,21 @@
 const router = require('express').Router();
 const validator = require('../middleware/validator')
-const response = require('../services/response');
-const httpStatus = require('http-status');
-const { oneOf } = require('express-validator');
 const controller = require('../controllers/server.controller');
 const userValidator = require('./validators/server.validator');
-const rateLimit = require('express-rate-limit');
+const passport = require('passport');
+require('./../middleware/passport')(passport);
 
-router.post('/', [
-    userValidator.name,
-    userValidator.url,
-    userValidator.ip,
-    userValidator.description,
-    userValidator.banner,
-    userValidator.type,
-], validator.controllerValidator, controller.register);
+router.post('/',
+    passport.authenticate('jwt', { session: false }),
+    [
+        userValidator.name,
+        userValidator.url,
+        userValidator.ip,
+        userValidator.description,
+        userValidator.banner,
+        userValidator.type,
+    ], validator.controllerValidator,
+    controller.add
+);
 
 module.exports = router;

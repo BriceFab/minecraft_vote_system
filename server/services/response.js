@@ -11,7 +11,7 @@ module.exports.sendError = (res, messages, type, code = httpStatus.UNKNOWN_ERROR
     if (messages === undefined) messages = 'unknown error';
     if (type === undefined) type = 'reponse';
 
-    res.status(code ? code : httpStatus.UNAUTHORIZED).json({
+    res.status(code ? code : httpStatus.BAD_REQUEST).json({
         success: false,
         error: {
             type: type,
