@@ -5,14 +5,14 @@ import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { register } from '../../actions/user';
 import { validateForm } from "redux-form-validators";
-import userValidator from "../../validators/user.js";
 import DialogFormContents from "../../templates/dialog-form-contents.jsx";
 import TextField from './fields/text-field';
 import SelectField from './fields/select-field';
 import Person from "@material-ui/icons/Person";
 import DialogFormActions from "../../templates/dialog-form-actions.jsx";
+import { addServer } from '../../actions/server';
+import serverValidator from "../../validators/server.js";
 
 const styles = theme => ({
   gridItem: {
@@ -24,11 +24,10 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 
 class ServerForm extends Component {
   onSubmit({ ...props }) {
-    this.props.register(props).then((res) => {
-      if (res && res.success) {
-        this.props.showLogin();
-      }
-    });
+
+    props.id_type = props.id_type.id
+
+    this.props.addServer(props);
   }
 
   render() {
@@ -39,6 +38,21 @@ class ServerForm extends Component {
     return (
       <DialogFormContents onSubmit={handleSubmit(this.onSubmit.bind(this))} actions={actions}>
         <Field
+          name="id_type"
+          component={SelectField}
+          placeholder="Type"
+          formControlProps={{
+            fullWidth: true
+          }}
+          isClearable
+          touchOnChange
+          suggestions={[
+            { id: 1, text: 'Bahamas' },
+          ]}
+          getOptionLabel={(option) => option.text}
+          getOptionValue={(option) => option.id}
+        />
+        {/* <Field
           name="tags"
           component={SelectField}
           placeholder="Tags du serveur"
@@ -47,8 +61,7 @@ class ServerForm extends Component {
           }}
           isClearable
           touchOnChange
-        >
-        </Field>
+        /> */}
         <Field
           name="name"
           component={TextField}
@@ -93,8 +106,7 @@ class ServerForm extends Component {
 }
 
 const validate = validateForm({
-  name: userValidator.username,
-  type: userValidator.username,
+  // name: serverValidator.name,
 })
 
 const form = {
@@ -107,7 +119,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    register
+    addServer
   }, dispatch)
 }
 

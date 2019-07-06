@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import CONFIG from '../config';
 import moment from 'moment';
 
+const URI = 'user';
+
 export const setToken = (token) => (dispatch) => {
     dispatch({
         type: ACTIONS.USER.SET_TOKEN,
@@ -12,7 +14,7 @@ export const setToken = (token) => (dispatch) => {
 }
 
 export const register = (user) => (dispatch) => {
-    return axiosPost(`user/register`, user).then((res) => {
+    return axiosPost(`${URI}/register`, user).then((res) => {
         dispatch({
             type: ACTIONS.API.SUCCESS,
             payload: {
@@ -34,7 +36,7 @@ export const register = (user) => (dispatch) => {
 };
 
 export const login = (user) => dispatch => {
-    return axiosPost(`user/login`, user).then((res) => {
+    return axiosPost(`${URI}/login`, user).then((res) => {
         dispatch(setToken(res.data.data.token));
         dispatch({
             type: ACTIONS.USER.LOGIN,

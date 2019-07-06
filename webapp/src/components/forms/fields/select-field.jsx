@@ -67,9 +67,8 @@ function NoOptionsMessage(props) {
         <Typography
             color="textSecondary"
             className={props.selectProps.classes.noOptionsMessage}
-            {...props.innerProps}
-        >
-            {props.children}
+            {...props.innerProps}>
+            Aucune option
         </Typography>
     );
 }
@@ -137,7 +136,7 @@ function Option(props) {
             selected={props.isFocused}
             component="div"
             // style={{
-                // fontWeight: props.isSelected ? 500 : 400,
+            // fontWeight: props.isSelected ? 500 : 400,
             // }}
             {...props.innerProps}
         >
@@ -241,26 +240,6 @@ const components = {
     ValueContainer,
 };
 
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-]
-
 class SelectField extends Component {
 
     render() {
@@ -269,13 +248,12 @@ class SelectField extends Component {
         return (
             <FormControl {...formControlProps} className={classes.formControl}>
                 <Select
-                    // {...input}
                     {...inputProps}
                     {...otherProps}
                     placeholder={placeholder}
                     classes={classes}
                     styles={selectStyles}
-                    // inputId="react-select-single"
+                    inputId={input.id}
                     TextFieldProps={{
                         InputLabelProps: {
                             htmlFor: input.id,
@@ -283,7 +261,7 @@ class SelectField extends Component {
                         },
                     }}
                     // isMulti
-                    options={suggestions}
+                    options={otherProps.suggestions}
                     components={components}
                     value={input.value}
                     onChange={input.onChange}
