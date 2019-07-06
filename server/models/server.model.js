@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         banner: {type: DataTypes.STRING, allowNull: true},
         vote_wait: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 180},
         vote_duration: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 30},
-        enable: {type: DataTypes.BOOLEAN, defaultValue: true},
+        enable: {type: DataTypes.BOOLEAN, defaultValue: false},
     });
 
     server.associate = (models) => {

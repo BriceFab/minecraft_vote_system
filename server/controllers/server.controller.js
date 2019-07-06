@@ -36,3 +36,16 @@ module.exports.deleteMy = async (req, res) => {
         return response.sendError(res, 'server not found');
     })
 };
+
+module.exports.editMy = async (req, res) => {
+    server.findOne({
+        where: {
+            id_server: req.params.id_server
+        }
+    }).then(res_server => {
+        res_server.update(req.body);
+        response.sendSuccess(res, res_server);
+    }).catch(error => {
+        return response.sendError(res, 'server not found');
+    })
+};

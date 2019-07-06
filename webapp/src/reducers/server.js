@@ -16,5 +16,14 @@ export default function reducer(state = initialState, action) {
         case ACTIONS.SERVER.DELETE_MY:
             state.my_all = state.my_all.filter(server => server.id_server !== action.payload.id_server);
             return { ...state };
+        case ACTIONS.SERVER.EDIT_MY:
+            state.my_all = state.my_all.map(server => {
+                if (server.id_server !== action.payload.id_server) {
+                    return action.payload;
+                } else {
+                    return server;
+                }
+            });
+            return { ...state };
     }
 }

@@ -11,7 +11,7 @@ import DialogForm from "../../templates/dialog-form";
 import MaterialTable from "material-table";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { getMyServers, deleteMyServer } from '../../actions/server';
+import { getMyServers, deleteMyServer, editMyServer } from '../../actions/server';
 
 const styles = theme => ({
   content: {
@@ -91,7 +91,10 @@ class ManagementPage extends Component {
                   return <Switch
                     checked={rowData.enable}
                     color={'secondary'}
-                  // onChange={handleChange('checkedA')}
+                    onChange={(event, checked) => {
+                      rowData.enable = checked;
+                      this.props.editMyServer(rowData);
+                    }}
                   />
                 }
               },
@@ -110,10 +113,16 @@ class ManagementPage extends Component {
               }
             ]}
             options={{
-              actionsColumnIndex: -1
+              actionsColumnIndex: -1,
+              columnsButton: true,
+              exportAllData: true,
+              exportButton: true,
+              exportDelimiter: ';',
+              filtering: true,
+              pageSize: 3,
+              pageSizeOptions: [3, 5, 10]
             }}
             data={this.props.myServers}
-            isLoading={this.props.myServers.length <= 0}
           />
 
         </Paper>
@@ -138,6 +147,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     getMyServers,
     deleteMyServer,
+    editMyServer,
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(requiredAuth()(withStyles(styles)(ManagementPage)));

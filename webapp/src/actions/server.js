@@ -1,4 +1,4 @@
-import { axiosPost, axiosGet, axiosDelete } from '../services/axios';
+import { axiosPost, axiosGet, axiosDelete, axiosPut } from '../services/axios';
 import { ACTIONS } from './actions-types';
 
 const URI = 'server';
@@ -55,6 +55,27 @@ export const deleteMyServer = (server) => dispatch => {
             payload: {
                 id_server: server.id_server
             }
+        });
+    }, (error) => {
+        dispatch({
+            type: ACTIONS.API.ERROR,
+            payload: error
+        });
+    });
+};
+
+export const editMyServer = (server) => dispatch => {
+    axiosPut(`${URI}/my/${server.id_server}`, server).then((res) => {
+        dispatch({
+            type: ACTIONS.API.SUCCESS,
+            payload: {
+                response: res,
+                messages: `${server.name} a été modifié avec succès`
+            }
+        });
+        dispatch({
+            type: ACTIONS.SERVER.EDIT_MY,
+            payload: res.data.data
         });
     }, (error) => {
         dispatch({

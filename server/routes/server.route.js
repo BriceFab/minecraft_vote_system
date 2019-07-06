@@ -33,4 +33,19 @@ router.delete('/my/:id_server',
     controller.deleteMy
 );
 
+router.put('/my/:id_server',
+    passport.authenticate('jwt', { session: false }),
+    [
+        param('id_server')
+            .isUUID().withMessage('server invalide'),
+        userValidator.name,
+        userValidator.url,
+        // userValidator.ip,
+        userValidator.description,
+        // userValidator.banner,
+        userValidator.type,
+    ], validator.controllerValidator,
+    controller.editMy
+);
+
 module.exports = router;

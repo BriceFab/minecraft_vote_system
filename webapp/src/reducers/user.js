@@ -12,6 +12,9 @@ export default function reducer(state = initialState, action) {
         default: return state;
         case ACTIONS.USER.LOGIN:
             state.loggedIn = true;
+            // window.location.href = '/';
+            // window.location.reload(true);
+            window.location.reload();
             return { ...state };
         case ACTIONS.USER.SET_TOKEN:
             const token = action.payload;
