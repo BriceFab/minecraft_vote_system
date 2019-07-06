@@ -25,10 +25,13 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 
 class ServerForm extends Component {
   onSubmit({ ...props }) {
-
     if (props.id_type) props.id_type = props.id_type.id_type
 
-    this.props.addServer(props);
+    this.props.addServer(props).then((res_server) => {
+      if (res_server !== undefined) {
+        this.props.onClose();
+      }
+    });
   }
 
   getListTypes() {
@@ -112,11 +115,11 @@ class ServerForm extends Component {
 
 const validate = validateForm({
   name: serverValidator.name,
-   url: serverValidator.url,
-   ip: serverValidator.ip,
-   description: serverValidator.description,
-   banner: serverValidator.banner,
-   id_type: serverValidator.id_type,
+  url: serverValidator.url,
+  ip: serverValidator.ip,
+  description: serverValidator.description,
+  banner: serverValidator.banner,
+  id_type: serverValidator.id_type,
 })
 
 const form = {

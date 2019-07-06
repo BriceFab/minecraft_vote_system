@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles, Paper, Grid, Fab, Tooltip } from "@material-ui/core";
+import { withStyles, Paper, Grid, Fab, Tooltip, Switch } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../../config';
 import requiredAuth from "../../services/required-auth";
@@ -8,9 +8,10 @@ import HeaderTitle from "../../templates/header-title";
 import TYPE from "../constants/modal";
 import ServerForm from '../forms/server';
 import DialogForm from "../../templates/dialog-form";
-// import classNames from 'classnames';
-// import componentsStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/components.jsx";
-// import combineStyles from "../../services/combineStyles";
+import MaterialTable from "material-table";
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { getMyServers, deleteMyServer } from '../../actions/server';
 
 const styles = theme => ({
   content: {
@@ -19,10 +20,8 @@ const styles = theme => ({
   },
   divider: {
     paddingBottom: 25
-  }
+  },
 });
-
-// const combinedStyles = combineStyles(componentsStyle, styles);
 
 class ManagementPage extends Component {
   constructor(props) {
@@ -32,6 +31,10 @@ class ManagementPage extends Component {
       serverFormOpen: false,
       type: TYPE.ADD,
     }
+  }
+
+  componentWillMount() {
+    this.props.getMyServers();
   }
 
   onCloseForm() {
@@ -65,22 +68,76 @@ class ManagementPage extends Component {
             </Grid>
           </Grid>
 
-          Liste des serveurs
+          <MaterialTable
+            title={'Mes serveurs'}
+            style={{
+              boxShadow: 'none',
+              margin: '25px -24px -25px -24px',
+            }}
+            columns={[
+              { title: 'Nom', field: 'name' },
+              {
+                title: 'Site',
+                field: 'url',
+                render: rowData => {
+                  return <a href={rowData.url} target={'_blank'}>{rowData.url}</a>
+                }
+              },
+              {
+                title: 'Est actif',
+                field: 'enable',
+                render: rowData => {
+                  // return <div>{rowData.enable ? 'oui' : 'non'}</div>
+                  return <Switch
+                    checked={rowData.enable}
+                    color={'secondary'}
+                  // onChange={handleChange('checkedA')}
+                  />
+                }
+              },
+            ]}
+            actions={[
+              {
+                icon: 'save',
+                tooltip: 'Gérer',
+              },
+              {
+                icon: 'delete',
+                tooltip: 'Supprimer',
+                onClick: (event, rowData) => {
+                  this.props.deleteMyServer(rowData);
+                }
+              }
+            ]}
+            options={{
+              actionsColumnIndex: -1
+            }}
+            data={this.props.myServers}
+            isLoading={this.props.myServers.length <= 0}
+          />
 
         </Paper>
 
         <div className={classes.divider} />
 
-
         <DialogForm title={'Ajouter un serveur'} open={this.state.serverFormOpen} onClose={this.onCloseForm.bind(this)} maxWidth={'md'}>
           <ServerForm type={this.state.type} onClose={this.onCloseForm.bind(this)} />
         </DialogForm>
-        {/* <Modal open={this.state.serverFormOpen} style={{ overflowY: "scroll" }} onClose={this.onCloseForm.bind(this)} disableAutoFocus={true}>
-          <ServerForm type={this.state.type} close={this.onCloseForm.bind(this)} />
-        </Modal> */}
-
       </>
     );
   }
 }
-export default (requiredAuth()(withStyles(styles)(ManagementPage)));
+
+const mapStateToProps = (state) => {
+  return {
+    myServers: state.server.my_all
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getMyServers,
+    deleteMyServer,
+  }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(requiredAuth()(withStyles(styles)(ManagementPage)));
