@@ -2,7 +2,6 @@ import axios from 'axios';
 import CONFIG from '../config';
 import jwt from 'jsonwebtoken';
 import { token_expired } from '../actions/user';
-import moment from 'moment';
 
 let instance = axios.create({
     baseURL: CONFIG.API.BASE_URL,

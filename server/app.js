@@ -109,7 +109,15 @@ geoip.reloadData(() => {
 app.use(helmet());
 
 //Cors
-app.use(cors());
+const corsOptions = {
+    exposedHeaders: [
+        'X-RateLimit-Limit',
+        'X-RateLimit-Remaining',
+        'X-RateLimit-Reset'
+    ]
+}
+
+app.use(cors(corsOptions));
 
 //Routes
 require('./routes')(app);

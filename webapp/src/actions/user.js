@@ -51,47 +51,29 @@ export const login = (user) => dispatch => {
         });
         return res.data;
     }, (error) => {
-        const act_date = moment(new Date());
-        
-        if (error.response && error.response.data.error.type === 'limit') {
-            const last_try = localStorage.getItem(CONFIG.STORAGE.LOGIN_LAST_TRY);
-            const last_try_date = moment(last_try).add(CONFIG.API.LOGIN.RETRY_TIME, 'minutes');
-            let retry_in = last_try_date.diff(act_date, 'minutes');
+        let api_error = error;
+        if (error.response) {
+            const headers = error.response.headers;
 
-            if (retry_in > CONFIG.API.LOGIN.RETRY_TIME || retry_in < 0) {
-                retry_in = CONFIG.API.LOGIN.RETRY_TIME;
-                localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
-            }
-
-            if (!last_try) {
-                localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
-            }
-
-            toast.error(`Vous avez dépassé la limite d'essai de connexion. Réssayer dans ${retry_in ? retry_in : CONFIG.API.LOGIN.RETRY_TIME} minutes`);
-            localStorage.removeItem(CONFIG.STORAGE.LOGIN_TRY_COUNT);
-        } else {
-            let login_try = localStorage.getItem(CONFIG.STORAGE.LOGIN_TRY_COUNT);
-
-            if (!login_try) {
-                localStorage.setItem(CONFIG.STORAGE.LOGIN_TRY_COUNT, 1);
+            const remaining = headers['x-ratelimit-remaining'];
+            if (remaining > 0) {
+                const limit = headers['x-ratelimit-limit'];
+                toast.warn(`Essai de connexion n°${limit - remaining}/${limit}`);
             } else {
-                if (login_try < CONFIG.API.LOGIN.MAX_TRY) {
-                    login_try++;
-                    toast.warn(`Essai de connexion n°${login_try}/${CONFIG.API.LOGIN.MAX_TRY}`);
-                    localStorage.setItem(CONFIG.STORAGE.LOGIN_TRY_COUNT, login_try);
+                const retry_date = moment(headers['x-ratelimit-reset'] * 1000);
+                const retry_in = retry_date.diff(Date.now(), 'minutes');
 
-                    localStorage.removeItem(CONFIG.STORAGE.LOGIN_LAST_TRY);
-                    if (login_try >= CONFIG.API.LOGIN.MAX_TRY) {
-                        localStorage.setItem(CONFIG.STORAGE.LOGIN_LAST_TRY, act_date);
-                    }
+                api_error = {
+                    message: `Vous avez dépassé la limite d'essai de connexion. Réssayer dans ${retry_in} minutes`,
                 }
             }
-            dispatch({
-                type: ACTIONS.API.ERROR,
-                payload: error
-            });
         }
-    });
+
+        dispatch({
+            type: ACTIONS.API.ERROR,
+            payload: api_error
+        });
+    })
 };
 
 export const logout = () => dispatch => {

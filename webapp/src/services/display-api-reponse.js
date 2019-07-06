@@ -18,7 +18,7 @@ export const displayError = (error) => {
         messages = ['connection refused'];
     } else {
         console.log('error message', error.message);
-        messages = ['error message'];
+        messages = error.message ? [error.message] : ['error message'];
     }
 
     // messages.forEach(message => {
