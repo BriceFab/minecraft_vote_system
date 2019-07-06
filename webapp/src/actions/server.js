@@ -4,7 +4,7 @@ import { ACTIONS } from './actions-types';
 const URI = 'server';
 
 export const addServer = (server) => dispatch => {
-    return axiosPost(`${URI}/add`, server).then((res) => {
+    return axiosPost(`${URI}`, server).then((res) => {
         dispatch({
             type: ACTIONS.SERVER.ADD,
             payload: res.data

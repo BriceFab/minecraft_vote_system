@@ -7,7 +7,7 @@ const controller = require('../controllers/server.controller');
 const userValidator = require('./validators/server.validator');
 const rateLimit = require('express-rate-limit');
 
-router.post('/add', [
+router.post('/', [
     userValidator.name,
     userValidator.url,
     userValidator.ip,

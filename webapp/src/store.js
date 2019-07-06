@@ -6,6 +6,7 @@ import apiReducer from './reducers/api-response';
 import { setToken } from './actions/user';
 import CONFIG from './config';
 import serverReducer from './reducers/server';
+import typeReducer from './reducers/type';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,6 +16,7 @@ const store = createStore(
         api: apiReducer,
         user: userReducer,
         server: serverReducer,
+        type: typeReducer,
     }),
     composeEnhancers(applyMiddleware(thunk)),
 );

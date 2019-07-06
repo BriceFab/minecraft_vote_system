@@ -13,5 +13,8 @@ export const ACTIONS = {
         ADD: "ADD_SERVER",
         EDIT: "EDIT_SERVER",
         DELETE: "DELETE_SERVER",
+    },
+    TYPE: {
+        GET_ALL: "GET_ALL_TYPE",
     }
 };

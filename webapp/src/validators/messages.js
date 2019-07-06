@@ -5,6 +5,7 @@ import Validators from 'redux-form-validators';
 Object.assign(Validators.messages, {
     tooShort: "minimum {count, number} caractères",
     tooLong: "maximum {count, number} caractères",
-    email: "Adresse email invalide",
-    presence: "est requis",
+    email: "adresse email invalide",
+    presence: "doit être rempli",
+    url: "url invalide",
 });

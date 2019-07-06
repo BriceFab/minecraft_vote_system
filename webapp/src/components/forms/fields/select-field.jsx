@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/styles";
 import { FormControl, Typography } from "@material-ui/core";
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
@@ -247,7 +247,7 @@ class SelectField extends Component {
 
         return (
             <FormControl {...formControlProps} className={classes.formControl}>
-                <Select
+                <AsyncSelect
                     {...inputProps}
                     {...otherProps}
                     placeholder={placeholder}
@@ -260,12 +260,13 @@ class SelectField extends Component {
                             shrink: true,
                         },
                     }}
-                    // isMulti
                     options={otherProps.suggestions}
                     components={components}
                     value={input.value}
                     onChange={input.onChange}
                     onBlur={() => input.onBlur()}
+                    cacheOptions
+                    defaultOptions
                 />
                 {touched && error && <Typography color={'error'}>{error}</Typography>}
             </FormControl>

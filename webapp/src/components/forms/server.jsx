@@ -12,6 +12,7 @@ import SelectField from './fields/select-field';
 import Person from "@material-ui/icons/Person";
 import DialogFormActions from "../../templates/dialog-form-actions.jsx";
 import { addServer } from '../../actions/server';
+import { getTypes } from '../../actions/type';
 import serverValidator from "../../validators/server.js";
 
 const styles = theme => ({
@@ -25,9 +26,13 @@ const combinedStyles = combineStyles(loginPageStyle, styles);
 class ServerForm extends Component {
   onSubmit({ ...props }) {
 
-    props.id_type = props.id_type.id
+    if (props.id_type) props.id_type = props.id_type.id_type
 
     this.props.addServer(props);
+  }
+
+  getListTypes() {
+    return this.props.getTypes();
   }
 
   render() {
@@ -46,11 +51,11 @@ class ServerForm extends Component {
           }}
           isClearable
           touchOnChange
-          suggestions={[
-            { id: 1, text: 'Bahamas' },
-          ]}
-          getOptionLabel={(option) => option.text}
-          getOptionValue={(option) => option.id}
+          loadOptions={this.getListTypes.bind(this)}
+          // defaultOptions={[
+          //   { id: 1, text: 'Bahamas' },
+          // ]}
+          getOptionLabel={(option) => option.label}
         />
         {/* <Field
           name="tags"
@@ -106,7 +111,12 @@ class ServerForm extends Component {
 }
 
 const validate = validateForm({
-  // name: serverValidator.name,
+  name: serverValidator.name,
+  url: serverValidator.url,
+  ip: serverValidator.ip,
+  description: serverValidator.description,
+  banner: serverValidator.banner,
+  id_type: serverValidator.id_type,
 })
 
 const form = {
@@ -119,7 +129,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    addServer
+    getTypes,
+    addServer,
   }, dispatch)
 }
 
