@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles, Paper, Grid, Modal, Fab, Tooltip } from "@material-ui/core";
+import { withStyles, Paper, Grid, Fab, Tooltip } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../../config';
 import requiredAuth from "../../services/required-auth";
@@ -72,10 +72,12 @@ class ManagementPage extends Component {
         <div className={classes.divider} />
 
 
-        <DialogForm />
-        <Modal open={this.state.serverFormOpen} style={{ overflowY: "scroll" }} onClose={this.onCloseForm.bind(this)} disableAutoFocus={true}>
+        <DialogForm title={'Ajouter un serveur'} open={this.state.serverFormOpen} onClose={this.onCloseForm.bind(this)} maxWidth={'md'}>
+          <ServerForm type={this.state.type} onClose={this.onCloseForm.bind(this)} />
+        </DialogForm>
+        {/* <Modal open={this.state.serverFormOpen} style={{ overflowY: "scroll" }} onClose={this.onCloseForm.bind(this)} disableAutoFocus={true}>
           <ServerForm type={this.state.type} close={this.onCloseForm.bind(this)} />
-        </Modal>
+        </Modal> */}
 
       </>
     );

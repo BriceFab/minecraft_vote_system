@@ -1,15 +1,10 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { useMediaQuery, TextField } from '@material-ui/core';
-import { withTheme } from '@material-ui/styles';
 import { isMobile } from 'react-device-detect';
 
 const styles = theme => ({
@@ -39,90 +34,19 @@ const DialogTitle = withStyles(styles)(props => {
     );
 });
 
-const DialogContent = withStyles(theme => ({
-    root: {
-        padding: theme.spacing(2),
-    },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(1),
-    },
-}))(MuiDialogActions);
-
-class DialogForm extends React.Component {
-    state = {
-        open: false,
-    };
-
-    handleClickOpen = () => {
-        this.setState({
-            open: true,
-        });
-    };
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
-    render() {
-        return (
-            <div>
-                <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>
-                    Open dialog
-        </Button>
-                <Dialog
-                    onClose={this.handleClose}
-                    aria-labelledby="customized-dialog-title"
-                    open={this.state.open}
-                    fullScreen={isMobile}
-                    maxWidth={'md'}
-                >
-                    <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-                        Ajouter un serveur
-          </DialogTitle>
-                    <DialogContent dividers>
-                        <Typography gutterBottom>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-                            at eros.
-            </Typography>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Email Address"
-                            type="email"
-                            fullWidth
-                        />
-                           <TextField
-                            margin="dense"
-                            id="af"
-                            label="Email Address"
-                            type="asdf"
-                            fullWidth
-                        />
-                        <Typography gutterBottom>
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                            lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </Typography>
-                        <Typography gutterBottom>
-                            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-                            auctor fringilla.
-            </Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Save changes
-            </Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
-        );
-    }
+const DialogForm = props => {
+    return (
+        <Dialog
+            onClose={props.onClose}
+            aria-labelledby="formDialog"
+            open={props.open}
+            fullScreen={isMobile}
+            maxWidth={props.maxWidth}>
+            <DialogTitle id="formDialog" onClose={props.onClose}>
+                {props.title}
+            </DialogTitle>
+            {props.children}
+        </Dialog>
+    )
 }
-
-export default withTheme(DialogForm);
+export default DialogForm;
