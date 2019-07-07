@@ -2,7 +2,7 @@ const response = require('../services/response');
 const { user, server } = require('../models');
 
 module.exports.add = async (req, res) => {
-    const id_user = user.getCurrentUser(req)
+    const id_user = user.getCurrentUser(req);
 
     server.create({ ...req.body, id_user }).then(res_server => {
         response.sendSuccess(res, res_server);
@@ -12,7 +12,7 @@ module.exports.add = async (req, res) => {
 };
 
 module.exports.getAllMy = async (req, res) => {
-    const id_user = user.getCurrentUser(req)
+    const id_user = user.getCurrentUser(req);
     server.findAll({
         where: {
             id_user: id_user
@@ -27,7 +27,8 @@ module.exports.getAllMy = async (req, res) => {
 module.exports.deleteMy = async (req, res) => {
     server.findOne({
         where: {
-            id_server: req.params.id_server
+            id_server: req.params.id_server,
+            id_user: user.getCurrentUser(req),
         }
     }).then(res_server => {
         res_server.destroy();
@@ -40,7 +41,8 @@ module.exports.deleteMy = async (req, res) => {
 module.exports.editMy = async (req, res) => {
     server.findOne({
         where: {
-            id_server: req.params.id_server
+            id_server: req.params.id_server,
+            id_user: user.getCurrentUser(req),
         }
     }).then(res_server => {
         res_server.update(req.body);

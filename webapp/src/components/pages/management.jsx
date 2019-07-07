@@ -98,6 +98,7 @@ class ManagementPage extends Component {
                   />
                 }
               },
+              { title: 'Description', field: 'description' },
             ]}
             actions={[
               {
