@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import ToolBarActions from './top-bar-actions';
 import {
   IconButton,
   Toolbar,
@@ -17,20 +18,8 @@ import {
 import styles from '../../theme/styles/top-barStyle';
 
 class TopBar extends Component {
-  signal = true;
-
-  componentDidMount() {
-    this.signal = true;
-  }
-
-  componentWillUnmount() {
-    this.signal = false;
-  }
-
   handleSignOut = () => {
     const { history } = this.props;
-
-    localStorage.setItem('isAuthenticated', false);
     history.push('/sign-in');
   };
 
@@ -62,12 +51,9 @@ class TopBar extends Component {
             >
               {title}
             </Typography>
-            <IconButton
-              className={classes.signOutButton}
-              onClick={this.handleSignOut}
-            >
-              <InputIcon />
-            </IconButton>
+            <div className={classes.actions}>
+              <ToolBarActions />
+            </div>
           </Toolbar>
         </div>
       </Fragment>

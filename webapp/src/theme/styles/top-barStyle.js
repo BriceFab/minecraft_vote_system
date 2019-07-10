@@ -17,7 +17,7 @@ export default theme => ({
     menuButton: {
         marginLeft: '-4px'
     },
-    notificationsButton: {
+    actions: {
         marginLeft: 'auto'
     },
     signOutButton: {

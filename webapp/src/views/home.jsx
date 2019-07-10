@@ -25,9 +25,7 @@ class HomePage extends Component {
 
                 <Layout title={'Accueil'}>
                     <div className={classes.root}>
-
-
-                        Home page<br />
+                        Home<br />
                     </div>
                 </Layout>
             </>
