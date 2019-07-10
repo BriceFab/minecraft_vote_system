@@ -23,6 +23,7 @@
     "react-scripts": "3.0.1",
     "react-select": "^3.0.4",
     "react-toastify": "^5.3.1",
+    "recompose": "^0.30.0",
     "redux": "^4.0.1",
     "redux-form": "^8.2.4",
     "redux-form-validators": "^3.3.2",
