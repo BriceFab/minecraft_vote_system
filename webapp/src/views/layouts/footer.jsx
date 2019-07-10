@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-
-// Externals
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-// Material helpers
 import { withStyles } from '@material-ui/core';
-
-// Material components
 import { Divider, Typography } from '@material-ui/core';
+import moment from 'moment';
+import CONFIG from '../../config';
 
-// Component styles
 const styles = theme => ({
   root: {
     padding: theme.spacing(4)
@@ -34,11 +29,7 @@ class Footer extends Component {
           className={classes.company}
           variant="body1"
         >
-          &copy; Devias Io. 2019
-        </Typography>
-        <Typography variant="caption">
-          Created with love for the environment. By designers and developers who
-          love to work together in offices!
+          &copy; {moment(new Date()).format('Y')} {CONFIG.APP.NAME.toLowerCase()}
         </Typography>
       </div>
     );

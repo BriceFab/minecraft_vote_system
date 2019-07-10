@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
-// import i18next from 'i18next';
-import { Dashboard as DashboardLayout } from '../theme/layouts';
+import Layout from './layouts/layout';
 
 const styles = theme => ({
-
+    root: {
+        padding: theme.spacing(4)
+    },
 });
 
 class HomePage extends Component {
     render() {
+        const { classes } = this.props;
         return (
-            <DashboardLayout title="Dashboard">
+            <>
                 <Helmet>
                     <title>{CONFIG.APP.NAME} - Accueil</title>
                     <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/accueil`} />
@@ -21,10 +23,14 @@ class HomePage extends Component {
                     <meta name="keywords" cpntent="TODO" />
                 </Helmet>
 
-                Home page<br />
-                todo
-                {/* {i18next.t('key')} */}
-            </DashboardLayout>
+                <Layout title={'Accueil'}>
+                    <div className={classes.root}>
+
+
+                        Home page<br />
+                    </div>
+                </Layout>
+            </>
         );
     }
 }
