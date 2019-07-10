@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-
-// Externals
 import PropTypes from 'prop-types';
-
-// Material helpers
-import { withStyles } from '@material-ui/core';
-
-// Material components
+import { withStyles, Button } from '@material-ui/core';
 import { Grid, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
-// Component styles
 const styles = theme => ({
   root: {
     padding: theme.spacing(4)
@@ -29,6 +23,7 @@ const styles = theme => ({
 class NotFound extends Component {
   render() {
     const { classes } = this.props;
+    const { location } = this.props;
 
     return (
       <div className={classes.root}>
@@ -43,15 +38,19 @@ class NotFound extends Component {
             xs={12}
           >
             <div className={classes.content}>
-              <Typography variant="h1">
-                404: The page you are looking for isn’t here
+              <Typography variant={'h1'}>
+                Page introuvable
               </Typography>
-              <Typography variant="subtitle2">
-                You either tried some shady route or you came here by mistake.
-                Whichever it is, try using the navigation
+              <Typography component={'p'} variant={'subtitle1'}>
+                La page à l'adresse <code>{location.pathname}</code> n'est pas disponible.
               </Typography>
+              <Grid>
+                <Link to={'/'}>
+                  <Button variant={'outlined'}>Retour</Button>
+                </Link>
+              </Grid>
               <img
-                alt="Under development"
+                alt={'page introuvable'}
                 className={classes.image}
                 src="/images/not_found.png"
               />
