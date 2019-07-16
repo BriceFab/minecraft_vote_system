@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import { FormControl, Input, InputAdornment, InputLabel, Typography } from "@material-ui/core";
-import { primaryColor } from "../../../templates/material-kit/assets/jss/material-kit-react";
 import classNames from 'classnames';
 
 const styles = theme => ({
@@ -20,7 +19,7 @@ const styles = theme => ({
             borderWidth: "1px !important"
         },
         "&:after": {
-            borderColor: primaryColor
+            borderColor: theme.palette.primary.dark
         }
     },
     input: {

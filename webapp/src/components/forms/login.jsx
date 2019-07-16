@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography, Button } from "@material-ui/core";
 import Person from "@material-ui/icons/Person";
 import LockOutlined from "@material-ui/icons/LockOutlined";
-import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
-import CardBody from "../../templates/material-kit/components/Card/CardBody.jsx";
-import CardHeader from "../../templates/material-kit/components/Card/CardHeader.jsx";
-import CardFooter from "../../templates/material-kit/components/Card/CardFooter.jsx";
-import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/loginPage.jsx";
-import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
 import { validateForm } from 'redux-form-validators';
 import TextField from './fields/text-field';
@@ -15,11 +9,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { login } from '../../actions/user';
 import userValidator from "../../validators/user.js";
-
-const styles = theme => ({
-});
-
-const combinedStyles = combineStyles(loginPageStyle, styles);
+import styles from '../../theme/styles/loginStyle';
+import { Link } from 'react-router-dom'
 
 class LoginForm extends Component {
   onSubmit({ ...props }) {
@@ -35,10 +26,13 @@ class LoginForm extends Component {
 
     return (
       <form className={classes.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <CardHeader color="primary" className={classes.cardHeader}>
-          <h4>Connectez-vous</h4>
-        </CardHeader>
-        <CardBody>
+        <Typography
+          className={classes.title}
+          variant="h2"
+        >
+          Connectez-vous
+                      </Typography>
+        <div className={classes.fields}>
 
           <Field
             name="username"
@@ -63,13 +57,30 @@ class LoginForm extends Component {
               autoComplete: "off"
             }}
           />
+        </div>
 
-        </CardBody>
-        <CardFooter className={classes.cardFooter}>
-          <Button type={'submit'} simple color="primary" size="lg" disabled={pristine || submitting}>
-            Connexion
-          </Button>
-        </CardFooter>
+        <Button
+          className={classes.signInButton}
+          color={'primary'}
+          disabled={pristine || submitting}
+          size={'large'}
+          variant="contained"
+          type={'submit'}
+        >
+          Connexion
+              </Button>
+        <Typography
+          className={classes.signUp}
+          variant="body1"
+        >
+          Pas encore de compte?{' '}
+          <Link
+            className={classes.signUpUrl}
+            to="/sign-up"
+          >
+            S'enregistrer
+                    </Link>
+        </Typography>
       </form>
     );
   }
@@ -94,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-export default reduxForm(form)(connect(mapStateToProps, mapDispatchToProps)(withStyles(combinedStyles)(LoginForm)));
+export default reduxForm(form)(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoginForm)));
