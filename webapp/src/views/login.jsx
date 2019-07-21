@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 import LoginForm from '../components/forms/login';
 import { connect } from 'react-redux';
-import { toast } from "react-toastify";
 import styles from '../theme/styles/loginStyle';
 import LoginLayout from './layouts/login-layout';
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
+import { Link } from 'react-router-dom'
 
 class LoginPage extends Component {
     componentWillMount() {
         if (this.props.loggedIn) {
             this.props.history.push('/');
-            toast.warn('Vous êtes déjà connecté');
+            // toast.warn('Vous êtes déjà connecté');
         }
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <>
                 <Helmet>
@@ -28,7 +30,26 @@ class LoginPage extends Component {
                 </Helmet>
 
                 <LoginLayout>
-                    <LoginForm history={this.props.history} />
+                    <div className={classes.form}>
+                        <Typography
+                            className={classes.title}
+                            variant="h2">
+                            Connectez-vous
+                      </Typography>
+                        <LoginForm history={this.props.history} />
+                        <Typography
+                            className={classes.signUp}
+                            variant="body1"
+                        >
+                            Pas encore de compte?{' '}
+                            <Link
+                                className={classes.signUpUrl}
+                                to="/register"
+                            >
+                                S'enregistrer
+                    </Link>
+                        </Typography>
+                    </div>
                 </LoginLayout>
             </>
         );

@@ -25,7 +25,9 @@ export const displayError = (error) => {
         // toast.error(i18next.t(message.toString()));
     // });
 
-    toast.error(i18next.t(messages[0].toString()));
+    if (messages.length > 0) {
+        toast.error(i18next.t(messages[0].toString()));
+    }
 
     return messages;
 };

@@ -13,7 +13,6 @@ import {
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
-  Input as InputIcon
 } from '@material-ui/icons';
 import styles from '../../theme/styles/top-barStyle';
 

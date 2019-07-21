@@ -3,7 +3,7 @@ import { withStyles, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Person } from '@material-ui/icons';
 import styles from '../../theme/styles/top-bar-actionsStyle';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class TopBarActions extends Component {
 

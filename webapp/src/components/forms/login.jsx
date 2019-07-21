@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles, Typography, Button } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Person from "@material-ui/icons/Person";
 import LockOutlined from "@material-ui/icons/LockOutlined";
 import { Field, reduxForm } from 'redux-form';
@@ -10,7 +10,6 @@ import { bindActionCreators } from "redux";
 import { login } from '../../actions/user';
 import userValidator from "../../validators/user.js";
 import styles from '../../theme/styles/loginStyle';
-import { Link } from 'react-router-dom'
 
 class LoginForm extends Component {
   onSubmit({ ...props }) {
@@ -25,15 +24,8 @@ class LoginForm extends Component {
     const { classes, handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <form className={classes.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Typography
-          className={classes.title}
-          variant="h2"
-        >
-          Connectez-vous
-                      </Typography>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <div className={classes.fields}>
-
           <Field
             name="username"
             component={TextField}
@@ -43,7 +35,6 @@ class LoginForm extends Component {
               fullWidth: true
             }}
           />
-
           <Field
             name="password"
             component={TextField}
@@ -58,29 +49,15 @@ class LoginForm extends Component {
             }}
           />
         </div>
-
         <Button
           className={classes.signInButton}
           color={'primary'}
           disabled={pristine || submitting}
           size={'large'}
           variant="contained"
-          type={'submit'}
-        >
+          type={'submit'}>
           Connexion
-              </Button>
-        <Typography
-          className={classes.signUp}
-          variant="body1"
-        >
-          Pas encore de compte?{' '}
-          <Link
-            className={classes.signUpUrl}
-            to="/sign-up"
-          >
-            S'enregistrer
-                    </Link>
-        </Typography>
+        </Button>
       </form>
     );
   }

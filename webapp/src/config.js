@@ -12,6 +12,7 @@ const CONFIG = {
     },
     STORAGE: {
         TOKEN: process.env.NODE_ENV === 'development' ? 'token' : '5Aut%~L8C3D@.hd6',
+        USERNAME: process.env.NODE_ENV === 'development' ? 'username' : '9]N45NtY[8bHi!*q',
     },
 };
 export default CONFIG;

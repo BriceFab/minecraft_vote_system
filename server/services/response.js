@@ -53,3 +53,16 @@ module.exports.sendValidatorError = (res, err) => {
     }
     this.sendError(res, errors, 'validator', httpStatus.UNPROCESSABLE_ENTITY);
 };
+
+module.exports.secureObject = (object, keys) => {
+    if (object === undefined) return null;
+    object = JSON.parse(JSON.stringify(object));
+
+    let secureObject = {};
+    keys.map(key => {
+        let value = object[key];
+        if (value === undefined) value = null;
+        secureObject[key] = value;
+    })
+    return secureObject;
+} 

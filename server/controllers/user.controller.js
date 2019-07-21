@@ -32,6 +32,7 @@ module.exports.login = async (req, res) => {
 
             response.sendSuccess(res, {
                 token: token,
+                user: response.secureObject(res_user, ['username', 'email'])
             });
         } else {
             response.sendError(res, 'invalid password or username');
