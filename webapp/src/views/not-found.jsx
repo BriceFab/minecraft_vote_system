@@ -30,13 +30,11 @@ class NotFound extends Component {
         <Grid
           container
           justify="center"
-          spacing={4}
-        >
+          spacing={4}>
           <Grid
             item
             lg={6}
-            xs={12}
-          >
+            xs={12}>
             <div className={classes.content}>
               <Typography variant={'h1'}>
                 Page introuvable

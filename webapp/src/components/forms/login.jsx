@@ -5,11 +5,13 @@ import LockOutlined from "@material-ui/icons/LockOutlined";
 import { Field, reduxForm } from 'redux-form';
 import { validateForm } from 'redux-form-validators';
 import TextField from './fields/text-field';
+import Switch from './fields/switch';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { login } from '../../actions/user';
 import userValidator from "../../validators/user.js";
 import styles from '../../theme/styles/loginStyle';
+import CONFIG from "../../config";
 
 class LoginForm extends Component {
   onSubmit({ ...props }) {
@@ -48,11 +50,19 @@ class LoginForm extends Component {
               autoComplete: "off"
             }}
           />
+          <Field
+            name="remember"
+            component={Switch}
+            label="Se souvenir de moi"
+            inputProps={{
+              color: 'primary',
+            }}
+          />
         </div>
         <Button
           className={classes.signInButton}
           color={'primary'}
-          disabled={pristine || submitting}
+          disabled={JSON.parse(localStorage.getItem(CONFIG.STORAGE.REMEMBER)) === true ? false : pristine || submitting}
           size={'large'}
           variant="contained"
           type={'submit'}>
@@ -71,6 +81,11 @@ const validate = validateForm({
 const form = {
   form: 'LoginForm',
   validate,
+  initialValues: JSON.parse(localStorage.getItem(CONFIG.STORAGE.REMEMBER)) === true ? {
+    remember: localStorage.getItem(CONFIG.STORAGE.REMEMBER),
+    username: localStorage.getItem(CONFIG.STORAGE.USERNAME),
+    password: localStorage.getItem(CONFIG.STORAGE.PASSWORD),
+  } : {}
 };
 
 const mapStateToProps = (state) => ({

@@ -28,7 +28,9 @@ export default function reducer(state = initialState, action) {
         }
         case ACTIONS.USER.LOGOUT:
             localStorage.removeItem(CONFIG.STORAGE.TOKEN);
-            localStorage.removeItem(CONFIG.STORAGE.USERNAME);
+            if (JSON.parse(localStorage.getItem(CONFIG.STORAGE.REMEMBER)) === false) {
+                localStorage.removeItem(CONFIG.STORAGE.USERNAME);
+            }
             state.loggedIn = false;
             state.token = null;
             state.current = null;

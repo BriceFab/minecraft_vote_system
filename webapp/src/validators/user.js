@@ -9,6 +9,6 @@ const userValidator = {
     ],
     password: [
         required(), length({ min: 8, max: 128 })
-    ]
+    ],
 };
 export default userValidator;

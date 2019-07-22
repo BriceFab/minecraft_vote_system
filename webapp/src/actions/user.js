@@ -52,6 +52,14 @@ export const login = (user) => dispatch => {
                 messages: 'Vous êtes connecté'
             }
         });
+
+        localStorage.setItem(CONFIG.STORAGE.REMEMBER, user.remember.toString())
+        if (JSON.parse(user.remember) === true) {
+            localStorage.setItem(CONFIG.STORAGE.PASSWORD, user.password.toString())
+        } else {
+            localStorage.removeItem(CONFIG.STORAGE.PASSWORD)
+        }
+
         return res.data;
     }, (error) => {
         let api_error = error;

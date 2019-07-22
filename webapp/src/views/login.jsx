@@ -35,19 +35,17 @@ class LoginPage extends Component {
                             className={classes.title}
                             variant="h2">
                             Connectez-vous
-                      </Typography>
+                        </Typography>
                         <LoginForm history={this.props.history} />
                         <Typography
                             className={classes.signUp}
-                            variant="body1"
-                        >
-                            Pas encore de compte?{' '}
+                            variant="body1">
+                            Pas encore de compte? {' '}
                             <Link
                                 className={classes.signUpUrl}
-                                to="/register"
-                            >
+                                to="/register">
                                 S'enregistrer
-                    </Link>
+                            </Link>
                         </Typography>
                     </div>
                 </LoginLayout>

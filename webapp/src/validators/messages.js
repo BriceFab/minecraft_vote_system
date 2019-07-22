@@ -8,4 +8,5 @@ Object.assign(Validators.messages, {
     email: "adresse email invalide",
     presence: "doit être rempli",
     url: "url invalide",
+    confirmation: "Ne correspond pas avec `{fieldLabel}`"
 });

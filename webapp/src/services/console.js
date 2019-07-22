@@ -1,22 +1,18 @@
-export function register() {
-    var _privateLog = console.log;
+if (process.env.NODE_ENV === 'production') {
+    console.log('register console');
+
+    // var _privateLog = console.log;
     console.log = function (message) {
-        if (process.env.NODE_ENV === 'development') {
-            _privateLog.apply(console, arguments);
-        }
+        // _privateLog.apply(console, arguments);
     };
 
-    var _privateError = console.error;
+    // var _privateError = console.error;
     console.error = function (message) {
-        if (process.env.NODE_ENV === 'development') {
-            _privateError.apply(console, arguments);
-        }
+        // _privateError.apply(console, arguments);
     };
 
-    var _privateWarn = console.warn;
+    // var _privateWarn = console.warn;
     console.warn = function (message) {
-        if (process.env.NODE_ENV === 'development') {
-            _privateWarn.apply(console, arguments);
-        }
+        // _privateWarn.apply(console, arguments);
     };
 }

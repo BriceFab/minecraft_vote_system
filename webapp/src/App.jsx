@@ -1,14 +1,16 @@
+import './services/local-storage';
+import './services/console';
 import React, { Component, Suspense } from 'react';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { ThemeProvider } from '@material-ui/styles';
 import { Provider } from 'react-redux';
-import store from './store';
 import { ToastContainer } from 'react-toastify';
 import { isMobile } from 'react-device-detect';
 import CONFIG from './config';
 import { Helmet } from "react-helmet";
 import { Typography } from '@material-ui/core';
+import store from './store';
 
 //Theme
 import theme from './theme/theme';
@@ -27,7 +29,6 @@ export default class App extends Component {
   render() {
     return (
       <Suspense fallback={<Typography component={'h1'}>Chargement..</Typography>}>
-
         <Helmet>
           <title>{CONFIG.APP.NAME}</title>
           <link rel="canonical" href={`${CONFIG.APP.FULL_URL}/`} />
@@ -36,18 +37,18 @@ export default class App extends Component {
           <meta name="keywords" content="TODO" />
         </Helmet>
 
-        <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <Router history={browserHistory}>
+        <ThemeProvider theme={theme}>
+          <Router history={browserHistory}>
+            <Provider store={store}>
               <Routes />
-            </Router>
-          </ThemeProvider>
+            </Provider>
+          </Router>
+        </ThemeProvider>
 
-          <ToastContainer
-            position={isMobile ? 'top-right' : 'bottom-left'}
-            autoClose={3000}
-          />
-        </Provider>
+        <ToastContainer
+          position={isMobile ? 'top-right' : 'bottom-left'}
+          autoClose={3000}
+        />
       </Suspense>
     );
   }

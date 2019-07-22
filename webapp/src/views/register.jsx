@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 import RegisterForm from '../components/forms/register';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import styles from '../theme/styles/loginStyle';
 import LoginLayout from './layouts/login-layout';
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
+import { Link } from 'react-router-dom';
 
 class RegisterPage extends Component {
     componentWillMount() {
@@ -17,6 +18,8 @@ class RegisterPage extends Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <>
                 <Helmet>
@@ -28,7 +31,24 @@ class RegisterPage extends Component {
                 </Helmet>
 
                 <LoginLayout>
-                    <RegisterForm history={this.props.history} />
+                    <div className={classes.form}>
+                        <Typography
+                            className={classes.title}
+                            variant="h2">
+                            Inscrivez-vous
+                        </Typography>
+                        <RegisterForm history={this.props.history} />
+                        <Typography
+                            className={classes.signUp}
+                            variant="body1">
+                            Déjà un compte? {' '}
+                            <Link
+                                className={classes.signUpUrl}
+                                to="/login">
+                                Se connecter
+                            </Link>
+                        </Typography>
+                    </div>
                 </LoginLayout>
             </>
         );

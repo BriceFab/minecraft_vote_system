@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
 import LockOutlined from "@material-ui/icons/LockOutlined";
-import Button from "../../templates/material-kit/components/CustomButtons/Button.jsx";
-import CardBody from "../../templates/material-kit/components/Card/CardBody.jsx";
-import CardHeader from "../../templates/material-kit/components/Card/CardHeader.jsx";
-import CardFooter from "../../templates/material-kit/components/Card/CardFooter.jsx";
+import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import loginPageStyle from "../../templates/material-kit/assets/jss/material-kit-react/views/loginPage.jsx";
 import combineStyles from "../../services/combineStyles.js";
 import { Field, reduxForm } from 'redux-form';
@@ -14,11 +11,9 @@ import TextField from './fields/text-field';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { register } from '../../actions/user';
-import { validateForm } from "redux-form-validators";
+import { validateForm, confirmation } from "redux-form-validators";
 import userValidator from "../../validators/user.js";
-
-const styles = theme => ({
-});
+import styles from '../../theme/styles/loginStyle';
 
 const combinedStyles = combineStyles(loginPageStyle, styles);
 
@@ -26,7 +21,7 @@ class RegisterForm extends Component {
   onSubmit({ ...props }) {
     this.props.register(props).then((res) => {
       if (res && res.success) {
-        this.props.showLogin();
+        this.props.history.push('/login');
       }
     });
   }
@@ -35,12 +30,8 @@ class RegisterForm extends Component {
     const { classes, handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <form className={classes.form} onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <CardHeader color="primary" className={classes.cardHeader}>
-          <h4>S'enregistrer</h4>
-        </CardHeader>
-        <CardBody>
-
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <div className={classes.fields}>
           <Field
             name="username"
             component={TextField}
@@ -50,7 +41,6 @@ class RegisterForm extends Component {
               fullWidth: true
             }}
           />
-
           <Field
             name="email"
             component={TextField}
@@ -63,7 +53,6 @@ class RegisterForm extends Component {
               type: 'email',
             }}
           />
-
           <Field
             name="password"
             component={TextField}
@@ -77,14 +66,31 @@ class RegisterForm extends Component {
               autoComplete: "off"
             }}
           />
-
-        </CardBody>
-        <CardFooter className={classes.cardFooter}>
-          <Button type={'submit'} simple color="primary" size="lg" disabled={pristine || submitting}>
-            Connexion
-          </Button>
-        </CardFooter>
-      </form>
+          <Field
+            name={'confirmation'}
+            component={TextField}
+            label="Confirmation du mot de passe"
+            icon={<VerifiedUser className={classes.inputIconsColor} />}
+            formControlProps={{
+              fullWidth: true
+            }}
+            inputProps={{
+              type: 'password',
+              autoComplete: "off"
+            }}
+            validate={confirmation({ field: 'password', fieldLabel: 'Mot de passe' })}
+          />
+        </div>
+        <Button
+          className={classes.signInButton}
+          color={'primary'}
+          disabled={pristine || submitting}
+          size={'large'}
+          variant="contained"
+          type={'submit'}>
+          S'inscrire
+        </Button>
+      </form >
     );
   }
 }
