@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withStyles, Grid, Tooltip, Fab, Switch } from "@material-ui/core";
+import { withStyles, Grid, Tooltip, Fab, Switch, Button } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
 import Layout from './layouts/layout';
@@ -55,9 +55,13 @@ class ManagementPage extends Component {
                         <Grid container direction={"row"} justify={"flex-end"} alignItems={"center"}>
                             <Grid item>
                                 <Tooltip title="Ajouter un serveur" aria-label="Add">
-                                    <Fab color="primary" aria-label="Add" onClick={() => { this.setState({ serverFormOpen: true, type: TYPE.ADD }) }}>
-                                        <AddIcon />
-                                    </Fab>
+                                    <Button
+                                        color={'primary'}
+                                        size={'medium'}
+                                        variant={'outlined'}
+                                        onClick={() => { this.setState({ serverFormOpen: true, type: TYPE.ADD }) }}>
+                                        Ajouter
+                                    </Button>
                                 </Tooltip>
                             </Grid>
                         </Grid>

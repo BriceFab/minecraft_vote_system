@@ -5,7 +5,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { isMobile } from 'react-device-detect';
+import { withWidth } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -35,6 +35,8 @@ const DialogTitle = withStyles(styles)(props => {
 });
 
 const DialogForm = props => {
+    const isMobile = ['xs', 'sm'].includes(props.width);
+
     return (
         <Dialog
             onClose={props.onClose}
@@ -49,4 +51,4 @@ const DialogForm = props => {
         </Dialog>
     )
 }
-export default DialogForm;
+export default withWidth()(DialogForm);
