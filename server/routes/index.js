@@ -4,11 +4,13 @@ module.exports = function (app) {
     const voteRoute = require('./vote.route');
     const userRoute = require('./user.route');
     const typeRoute = require('./type.route');
+    const tagRoute = require('./tag.route');
     const serverRoute = require('./server.route');
 
     app.use('/vote', voteRoute);
     app.use('/user', userRoute);
     app.use('/type', typeRoute);
+    app.use('/tag', tagRoute);
     app.use('/server', serverRoute);
 
     if (config.app.env === 'dev') {

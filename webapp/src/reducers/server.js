@@ -1,7 +1,8 @@
 import { ACTIONS } from "../actions/actions-types";
 
 const initialState = {
-    my_all: []
+    my_all: [],
+    all_by_filters: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -12,6 +13,9 @@ export default function reducer(state = initialState, action) {
             return { ...state };
         case ACTIONS.SERVER.GET_ALL_MY:
             state.my_all = action.payload.data;
+            return { ...state };
+        case ACTIONS.SERVER.GET_ALL_BY_FILTERS:
+            state.all_by_filters = action.payload.data;
             return { ...state };
         case ACTIONS.SERVER.DELETE_MY:
             state.my_all = state.my_all.filter(server => server.id_server !== action.payload.id_server);

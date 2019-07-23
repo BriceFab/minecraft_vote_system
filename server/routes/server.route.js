@@ -24,6 +24,11 @@ router.get('/my',
     controller.getAllMy
 );
 
+router.post('/:id_type',
+    passport.authenticate('jwt', { session: false }),
+    controller.getAllByFilters
+);
+
 router.delete('/my/:id_server',
     passport.authenticate('jwt', { session: false }),
     [

@@ -1,4 +1,4 @@
 # WepApp
 
 * TODO:
-- Implémenter material kit react
+- Inscription vérification mail + captcha

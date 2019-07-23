@@ -41,6 +41,24 @@ export const getMyServers = () => dispatch => {
     });
 };
 
+export const getAllServersByFilters = (id_type, tags) => dispatch => {
+    axiosPost(`${URI}/${id_type}`, {
+        tags: tags
+    }).then((res) => {
+        dispatch({
+            type: ACTIONS.SERVER.GET_ALL_BY_FILTERS,
+            payload: res.data
+        });
+    }, (error) => {
+        dispatch({
+            type: ACTIONS.API.ERROR,
+            payload: {
+                message: 'Erreur lors de la récupération des serveurs'
+            }
+        });
+    });
+};
+
 export const deleteMyServer = (server) => dispatch => {
     axiosDelete(`${URI}/my/${server.id_server}`).then((res) => {
         dispatch({

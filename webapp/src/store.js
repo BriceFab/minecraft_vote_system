@@ -7,6 +7,7 @@ import { setToken } from './actions/user';
 import CONFIG from './config';
 import serverReducer from './reducers/server';
 import typeReducer from './reducers/type';
+import tagReducer from './reducers/tag';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,6 +18,7 @@ const store = createStore(
         user: userReducer,
         server: serverReducer,
         type: typeReducer,
+        tag: tagReducer,
     }),
     composeEnhancers(applyMiddleware(thunk)),
 );

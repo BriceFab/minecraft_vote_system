@@ -49,7 +49,7 @@ const limiter = rateLimit({
 });
 
 app.use('/vote', voteLimiter);
-app.use(limiter);
+// app.use(limiter); TODO REMETTRE IN PROD
 
 //Logs
 app.use(logger(config.log.http_format, {

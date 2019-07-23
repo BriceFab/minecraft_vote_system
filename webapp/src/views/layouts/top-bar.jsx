@@ -17,11 +17,6 @@ import {
 import styles from '../../theme/styles/top-barStyle';
 
 class TopBar extends Component {
-  handleSignOut = () => {
-    const { history } = this.props;
-    history.push('/sign-in');
-  };
-
   render() {
     const {
       classes,
@@ -40,14 +35,12 @@ class TopBar extends Component {
             <IconButton
               className={classes.menuButton}
               onClick={onToggleSidebar}
-              variant="text"
-            >
+              variant="text">
               {isSidebarOpen ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
             <Typography
               className={classes.title}
-              variant="h4"
-            >
+              variant="h4">
               {title}
             </Typography>
             <div className={classes.actions}>

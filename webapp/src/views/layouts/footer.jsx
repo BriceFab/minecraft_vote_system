@@ -27,8 +27,7 @@ class Footer extends Component {
         <Divider />
         <Typography
           className={classes.company}
-          variant="body1"
-        >
+          variant="body1">
           &copy; {moment(new Date()).format('Y')} {CONFIG.APP.NAME.toLowerCase()}
         </Typography>
       </div>

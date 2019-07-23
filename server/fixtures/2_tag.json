@@ -3,14 +3,16 @@
     "model": "tag",
     "data": {
       "id_tag": "1ec09f7a-c0ef-4671-b270-ceac93e90b52",
-      "label": "launcher"
+      "label": "launcher",
+      "id_type": "aa7560c8-6148-49ee-bdb9-b8b8ec16b921"
     }
   },
   {
     "model": "tag",
     "data": {
       "id_tag": "79d63399-2a18-432a-8c19-c5e556f2b600",
-      "label": "pvp/faction"
+      "label": "pvp/faction",
+      "id_type": "aa7560c8-6148-49ee-bdb9-b8b8ec16b921"
     }
   }
 ]

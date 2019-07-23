@@ -8,12 +8,14 @@ import LoginPage from './views/login';
 import RegisterPage from './views/register';
 import LogoutPage from './views/logout';
 import ManagementPage from './views/management';
+import ServersPage from './views/servers';
 
 export default class Routes extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route exact path="/" component={ServersPage} />
+                {/* <Route exact path="/accueil" component={HomePage} /> */}
                 <Route path="/login" component={LoginPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/logout" component={LogoutPage} />

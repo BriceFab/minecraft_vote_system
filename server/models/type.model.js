@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     type.associate = (models) => {
         models.type.hasMany(models.server, { foreignKey: { name: 'id_type', allowNull: false }, onDelete: 'CASCADE' });
+        models.type.hasMany(models.tag, { foreignKey: { name: 'id_type', allowNull: false }, onDelete: 'CASCADE' });
     };
 
     return type;

@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import {
   DashboardOutlined as DashboardIcon,
-  InfoOutlined as InfoIcon,
+  ContactSupportOutlined as InfoIcon,
 } from '@material-ui/icons';
 import styles from '../../theme/styles/side-barStyle';
 
@@ -25,7 +25,7 @@ class SideBar extends Component {
 
     return (
       <nav className={rootClassName}>
-        <div className={classes.logoWrapper}>
+        {/* <div className={classes.logoWrapper}>
           <Link
             className={classes.logoLink}
             to="/"
@@ -36,24 +36,22 @@ class SideBar extends Component {
               src="/images/logos/brainalytica_logo.svg"
             />
           </Link>
-        </div>
+        </div> */}
         <Divider className={classes.profileDivider} />
         <List
           component="div"
-          disablePadding
-        >
+          disablePadding>
           <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={NavLink}
-            to="/"
-          >
+            to="/">
             <ListItemIcon className={classes.listItemIcon}>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText
               classes={{ primary: classes.listItemText }}
-              primary={'Accueil'}
+              primary={'Serveurs'}
             />
           </ListItem>
         </List>
@@ -65,20 +63,17 @@ class SideBar extends Component {
             <ListSubheader className={classes.listSubheader}>
               Support
             </ListSubheader>
-          }
-        >
+          }>
           <ListItem
             className={classes.listItem}
-            component="a"
-            href="https://devias.io/contact-us"
-            target="_blank"
-          >
+            component={NavLink}
+            to={'/contact'}>
             <ListItemIcon className={classes.listItemIcon}>
               <InfoIcon />
             </ListItemIcon>
             <ListItemText
               classes={{ primary: classes.listItemText }}
-              primary="Customer support"
+              primary={'Nous contacter'}
             />
           </ListItem>
         </List>
