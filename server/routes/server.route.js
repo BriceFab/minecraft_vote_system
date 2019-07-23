@@ -25,7 +25,6 @@ router.get('/my',
 );
 
 router.post('/:id_type',
-    passport.authenticate('jwt', { session: false }),
     controller.getAllByFilters
 );
 

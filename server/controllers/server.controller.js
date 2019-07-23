@@ -1,5 +1,5 @@
 const response = require('../services/response');
-const { user, server, server_tag, type, sequelize } = require('../models');
+const { user, server, server_tag } = require('../models');
 
 module.exports.add = async (req, res) => {
     const id_user = user.getCurrentUser(req);
@@ -27,7 +27,6 @@ module.exports.getAllMy = async (req, res) => {
 module.exports.getAllByFilters = async (req, res) => {
     const { id_type } = req.params;
     const { tags } = req.body;
-    const Op = sequelize.Op;
 
     if (!Array.isArray(tags)) {
         return response.sendError(res, 'tags invalide');
