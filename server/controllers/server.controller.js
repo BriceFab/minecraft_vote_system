@@ -1,5 +1,5 @@
 const response = require('../services/response');
-const { user, server, server_tag } = require('../models');
+const { user, server, server_tag, tag } = require('../models');
 
 module.exports.add = async (req, res) => {
     const id_user = user.getCurrentUser(req);
@@ -33,7 +33,11 @@ module.exports.getAllByFilters = async (req, res) => {
     }
 
     server.findAll({
-        include: [server_tag],
+        include: [
+            {
+                model: server_tag,
+                include: [tag]
+            }],
         where: {
             id_type: id_type,
         }

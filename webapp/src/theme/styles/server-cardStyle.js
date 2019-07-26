@@ -13,7 +13,22 @@ export default theme => ({
         textAlign: 'center',
     },
     logo: {
-        // maxWidth: 64,
-        // maxHeight: 64
+        maxWidth: 64,
+        maxHeight: 64,
+    },
+    banner: {
+        maxWidth: 500,
+        maxHeight: 100,
+        borderRadius: 30,
+    },
+    tagChip: {
+        margin: theme.spacing(1),
+    },
+    gridTags: {
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+    },
+    inputIP: {
+        padding: 2.5,
     }
 });
