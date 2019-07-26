@@ -79,19 +79,36 @@ class ServersPage extends Component {
         this.setState({ type: value })
     }
 
-    changeTags = (e) => {
+    changeTags = (e, values) => {
+        let value = null;
+        let checked = null;
+        if (e && e.target) {
+            value = e.target.value;
+            checked = e.target.checked;
+        } else {
+            value = values.value;
+            checked = values.checked;
+        }
+
         let tags = [...this.state.tags];
         tags.forEach(tag => {
-            if (tag.id_tag === e.target.value) {
-                tag.selected = e.target.checked;
+            if (tag.id_tag === value) {
+                tag.selected = checked;
             }
-        })
+        });
         this.setState({
             tags: tags,
         }, () => {
             this.props.getAllServersByFilters(this.state.type, this.state.tags.filter(tag => tag.selected).map(tag => tag.id_tag));
         });
     };
+
+    clickTagList(checkBox) {
+        this.changeTags(null, {
+            value: checkBox.props.value,
+            checked: !checkBox.props.checked,
+        });
+    }
 
     renderTypes() {
         const { classes } = this.props;
@@ -133,18 +150,22 @@ class ServersPage extends Component {
                     </ListSubheader>}>
                         {this.state.tags.map(tag => {
                             const labelId = `tag-list-${tag.id_tag}`;
+                            const checkBox = (
+                                <Checkbox
+                                    edge="start"
+                                    value={tag.id_tag}
+                                    checked={tag.selected}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                    onClick={this.changeTags.bind(this)}
+                                />
+                            );
+
                             return (
-                                <ListItem key={tag.id_tag} role={undefined} dense button>
+                                <ListItem key={tag.id_tag} role={undefined} dense button onClick={this.clickTagList.bind(this, checkBox)}>
                                     <ListItemIcon>
-                                        <Checkbox
-                                            edge="start"
-                                            value={tag.id_tag}
-                                            checked={tag.selected}
-                                            tabIndex={-1}
-                                            disableRipple
-                                            inputProps={{ 'aria-labelledby': labelId }}
-                                            onClick={this.changeTags.bind(this)}
-                                        />
+                                        {checkBox}
                                     </ListItemIcon>
                                     <ListItemText id={labelId} primary={`${tag.label} (1)`} />
                                 </ListItem>
