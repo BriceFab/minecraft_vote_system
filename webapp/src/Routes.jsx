@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 //Views
 import NotFound from './views/not-found';
-import HomePage from './views/home';
+// import HomePage from './views/home';
 import LoginPage from './views/login';
 import RegisterPage from './views/register';
 import LogoutPage from './views/logout';

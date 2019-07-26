@@ -3,8 +3,6 @@ import { withStyles, Grid } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
 import Layout from './layouts/layout';
-import ServersList from "../components/list/servers/servers-list";
-import ServersTypes from "../components/list/servers/servers-types";
 
 const styles = theme => ({
     root: {

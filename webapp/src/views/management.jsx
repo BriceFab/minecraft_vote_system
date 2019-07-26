@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { withStyles, Grid, Tooltip, Fab, Switch, Button } from "@material-ui/core";
+import { withStyles, Grid, Tooltip, Switch, Button } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import CONFIG from '../config';
 import Layout from './layouts/layout';
-import AddIcon from '@material-ui/icons/Add';
 import MaterialTable from "material-table";
 import DialogForm from "../templates/dialog-form";
 import ServerForm from '../components/forms/server';
