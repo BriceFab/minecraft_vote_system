@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { withStyles, Grid, AppBar, Tab, Tabs, CircularProgress, List, ListItemText, Checkbox, ListItem, ListItemIcon, ListSubheader, withWidth, Paper } from "@material-ui/core";
+import { withStyles, Grid, AppBar, Tab, Tabs, CircularProgress, List, ListItemText, Checkbox, ListItem, ListItemIcon, ListSubheader, withWidth, Paper, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import compose from 'recompose/compose';
 import CONFIG from '../config';
@@ -180,8 +180,6 @@ class ServersPage extends Component {
     }
 
     renderServers() {
-        const { classes } = this.props;
-
         if (this.props.servers.length > 0) {
             return this.props.servers.map(server => {
                 return (
@@ -189,7 +187,7 @@ class ServersPage extends Component {
                 )
             })
         } else {
-            return <CircularProgress className={classes.progress} />
+            return <Typography>Aucun serveur associé à la recherche.</Typography>
         }
     }
 

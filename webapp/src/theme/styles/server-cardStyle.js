@@ -15,11 +15,13 @@ export default theme => ({
     logo: {
         maxWidth: 64,
         maxHeight: 64,
+        width: '100%',
     },
     banner: {
         maxWidth: 500,
         maxHeight: 100,
         borderRadius: 30,
+        width: '100%',
     },
     tagChip: {
         margin: theme.spacing(1),
@@ -30,5 +32,9 @@ export default theme => ({
     },
     inputIP: {
         padding: 2.5,
+    },
+    TextFieldIP: {
+        paddingLeft: theme.spacing(2.5),
+        paddingRight: theme.spacing(2.5),
     }
 });

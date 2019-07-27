@@ -1,5 +1,5 @@
 const response = require('../services/response');
-const { user, server, server_tag, tag } = require('../models');
+const { user, server, server_tag, vote } = require('../models');
 
 module.exports.add = async (req, res) => {
     const id_user = user.getCurrentUser(req);
@@ -33,11 +33,7 @@ module.exports.getAllByFilters = async (req, res) => {
     }
 
     server.findAll({
-        include: [
-            {
-                model: server_tag,
-                include: [tag]
-            }],
+        include: [server_tag, vote],
         where: {
             id_type: id_type,
         }
@@ -52,6 +48,11 @@ module.exports.getAllByFilters = async (req, res) => {
                 }
             })
             return has_all_tags;
+        });
+        filter_servers.forEach((act_server, index) => {
+            act_server.dataValues.nbrVotes = act_server.votes ? act_server.votes.length : 0;
+            act_server.dataValues.position = index + 1; //+ offset
+            return act_server;
         });
         response.sendSuccess(res, filter_servers);
     }).catch(error => {

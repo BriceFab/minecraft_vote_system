@@ -9,14 +9,17 @@ module.exports = (sequelize, DataTypes) => {
                 isUUID: 4,
             }
         },
-        name: {type: DataTypes.STRING, allowNull: false},
-        url: {type: DataTypes.STRING, allowNull: false},
-        ip: {type: DataTypes.STRING, allowNull: true},
-        description: {type: DataTypes.STRING, allowNull: false},
-        banner: {type: DataTypes.STRING, allowNull: true},
-        vote_wait: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 180},
-        vote_duration: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 30},
-        enable: {type: DataTypes.BOOLEAN, defaultValue: false},
+        name: { type: DataTypes.STRING, allowNull: false },
+        url: { type: DataTypes.STRING, allowNull: false },
+        ip: { type: DataTypes.STRING, allowNull: true },
+        description: { type: DataTypes.STRING, allowNull: false },
+        banner: { type: DataTypes.STRING, allowNull: true },
+        vote_wait: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 180 },
+        vote_duration: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 30 },
+        enable: { type: DataTypes.BOOLEAN, defaultValue: false },
+        version: { type: DataTypes.STRING, allowNull: true },
+        mc_version: { type: DataTypes.STRING, defaultValue: '1.7.10' },
+        allowCrack: { type: DataTypes.BOOLEAN, defaultValue: true },
     });
 
     server.associate = (models) => {

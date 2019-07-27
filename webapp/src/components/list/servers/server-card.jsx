@@ -18,7 +18,7 @@ class ServerCard extends Component {
   renderIP(ip) {
     const { classes } = this.props;
     return (
-      <TextField disabled color={'primary'} variant={'outlined'} fullWidth value={this.state.copied ? 'IP copiée !' : ip} InputProps={{
+      <TextField className={classes.TextFieldIP} disabled color={'primary'} variant={'outlined'} fullWidth value={this.state.copied ? 'IP copiée !' : ip} InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <Icon>file_copy</Icon>
@@ -50,12 +50,12 @@ class ServerCard extends Component {
         <div className={classes.mainGrid}>
           <Grid container>
             <Grid xs={1} className={classes.gridCenter}>
-              <Badge className={classes.margin} badgeContent={1} max={999} color={'secondary'}>
+              <Badge className={classes.margin} badgeContent={server.position} max={999} color={'secondary'}>
                 <Icon>equalizer</Icon>
               </Badge>
             </Grid>
-            <Grid xs={8}>{server.name}</Grid>
-            <Grid xs={3} className={classes.gridRight}>9'999 <Icon color={'primary'}>thumb_up_alt</Icon></Grid>
+            <Grid xs={8}>{server.name} - v1</Grid>
+            <Grid xs={3} className={classes.gridRight}>{server.nbrVotes} <Icon color={'primary'}>thumb_up_alt</Icon></Grid>
           </Grid>
           <Grid container>
             <Grid xs={1} className={classes.gridCenter}>
@@ -77,8 +77,8 @@ class ServerCard extends Component {
             </Grid>
             <Grid xs={3}>
               <Grid container>
-                <Grid xs={12}>version</Grid>
-                <Grid xs={12}>crack</Grid>
+                <Grid xs={12}>version: 1.7.10</Grid>
+                <Grid xs={12}>crack autorisés</Grid>
                 <Grid xs={12}>ip</Grid>
               </Grid>
             </Grid>
